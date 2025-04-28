@@ -1,0 +1,22 @@
+.catalogContainer{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.barItem{
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 4rem;
+
+}
+
+.barItem h2{
+    font-size: 1.7rem;
+}
+
+.barItem button{
+    border: none;
+    font-size: 1.4rem;
+}
