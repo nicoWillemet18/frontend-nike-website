@@ -1,8 +1,8 @@
 import React from 'react';
 import ProductCard from '../productCard/productCard'; 
-import styles from './ProductShowcase.module.css';
+import styles from './ProductSlice.module.css';
 
-const ProductShowcase: React.FC = () => {
+const ProductSlice: React.FC = () => {
   const products = [
     { 
       productName: "Nike Air Zoom", 
@@ -31,18 +31,24 @@ const ProductShowcase: React.FC = () => {
   ];
 
   return (
-    <div className={styles.showcase}>
-      {products.map((product, index) => (
-        <ProductCard 
-          key={index} 
-          productName={product.productName} 
-          productPrice={product.productPrice} 
-          productGender={product.productGender} 
-          size="small"
-        />
-      ))}
+    <div className={styles.sliceContainer}>
+      <button className={`${styles.arrowButton} ${styles.left}`}>&lt;</button>
+
+      <div className={styles.slice}>
+        {products.map((product, index) => (
+          <ProductCard 
+            key={index} 
+            productName={product.productName} 
+            productPrice={product.productPrice} 
+            productGender={product.productGender} 
+            size="small"
+          />
+        ))}
+      </div>
+
+      <button className={`${styles.arrowButton} ${styles.right}`}>&gt;</button>
     </div>
   );
 };
 
-export default ProductShowcase;
+export default ProductSlice;

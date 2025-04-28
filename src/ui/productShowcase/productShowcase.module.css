@@ -1,0 +1,25 @@
+.showcase {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  max-width: 1200px;
+  padding: 20px;
+}
+
+@media (min-width: 900px) {
+  .showcase {
+    flex-wrap: nowrap;
+  }
+
+  .card {
+    flex: 0 0 25%; 
+  }
+}
+
+@media (max-width: 600px) {
+  .card {
+    flex: 0 0 100%;
+  }
+}

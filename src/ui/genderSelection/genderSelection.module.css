@@ -1,0 +1,26 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .imageWrapper {
+    position: relative;
+    width: 30%;
+  }
+  
+  .logo {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 5px;
+  }
+  
+  .customButtonWrapper {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+  }  
