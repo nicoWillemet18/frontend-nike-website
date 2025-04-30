@@ -9,7 +9,6 @@
     display: flex;
     justify-content: space-between;
     padding: 1rem 4rem;
-
 }
 
 .barItem h2{
@@ -18,19 +17,21 @@
 
 .barItem button{
     border: none;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
+    background-color: #ffff;
+    cursor: pointer;
 }
 
 .filtersAndGrid {
     display: flex;
     justify-content: space-between;
-    gap: 20px; /* Espacio entre los componentes */
+    gap: 20px; 
   }
   
   .filtersAndGrid > div:first-child {
-    flex: 0 0 25%; /* El primer div (Filter) ocupa el 25% */
+    flex: 0 0 25%;
   }
   
   .filtersAndGrid > div:last-child {
-    flex: 1; /* El segundo div (GridProducts) ocupa el 75% restante */
+    flex: 1;
   }

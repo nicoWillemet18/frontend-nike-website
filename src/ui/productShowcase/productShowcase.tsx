@@ -38,7 +38,6 @@ const ProductShowcase: React.FC = () => {
           productName={product.productName} 
           productPrice={product.productPrice} 
           productGender={product.productGender} 
-          size="small"
         />
       ))}
     </div>

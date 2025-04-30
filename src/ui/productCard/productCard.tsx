@@ -6,12 +6,11 @@ interface ProductCardProps {
   productName: string;
   productPrice: string;
   productGender: string;
-  size: 'small' | 'large'; 
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ productName, productPrice, productGender, size }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ productName, productPrice, productGender }) => {
   return (
-    <div className={`${styles.card} ${styles[size]}`}>
+    <div className={styles.card}>
       <img src={imgCard} alt={productName} className={styles.image} />
       <div className={styles.content}>
         <h3 className={styles.productName}>{productName}</h3>
@@ -23,3 +22,4 @@ const ProductCard: React.FC<ProductCardProps> = ({ productName, productPrice, pr
 };
 
 export default ProductCard;
+

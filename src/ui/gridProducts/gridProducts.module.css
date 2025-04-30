@@ -1,8 +1,9 @@
 .gridContainer {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 columnas */
-    gap: 16px; /* Espacio entre los items */
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 16px; 
     margin-bottom: 20px;
+    padding: 0px 20px;
   }
   
   .pagination {
@@ -11,20 +12,28 @@
     gap: 10px;
   }
   
+  .paginationWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .pagination {
+    display: flex;
+    gap: 8px;
+    margin: 10px;
+  }
+  
   .pagination button {
+    border-radius: 50%;
     padding: 8px 12px;
     background-color: #f0f0f0;
     border: none;
     cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .pagination button:hover {
-    background-color: #e0e0e0;
   }
   
   .activePage {
-    background-color: #007bff;
-    color: white;
+    color: blue;
+    font-weight: bold;
   }
   
