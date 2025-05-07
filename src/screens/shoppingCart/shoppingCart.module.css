@@ -1,0 +1,15 @@
+.shoppingCartContainer{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.tableProducts{
+    display: flex;
+}
+
+.cartTitle{
+    padding-top: 30px;
+    padding-left: 100px;
+}

@@ -1,3 +1,33 @@
-export default function Cart() {
-    return <h2>Shopping Cart</h2>;
-  }
+import CartProducts from '../../ui/cartProducts/cartProducts';
+import DetailsCart from '../../ui/detailsCart/detailsCart';
+import Footer from '../../ui/footer/footer';
+import Header from '../../ui/header/header';
+import NavBar from '../../ui/navBar/navBar';
+import styles from './shoppingCart.module.css'
+
+
+export default function ShoppingCart() {
+
+    return (
+      <>
+      <div className={styles.shoppingCartContainer}>
+        <div>
+          <Header/>
+          <NavBar/>
+        </div>
+        <div className={styles.cartTitle}>
+          <h2>Carrito de Compras</h2>
+        </div>
+        <div className={styles.containerFlex}>
+          <div className={styles.tableProducts}>
+            <CartProducts/>
+            <DetailsCart/>
+          </div>
+          <div className={styles.detallesCart}>
+          </div>
+        </div>
+        <Footer/>
+      </div>
+      </>
+    );
+  }  

@@ -1,0 +1,109 @@
+.productDetailContainer{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.detail{
+    display: flex;
+    padding: 40px 20px;
+    align-items: center;
+}
+
+.productImage{
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}
+
+.img{
+    width: 60%;
+}
+
+.table{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.section1{
+    line-height: 1.8rem;
+    font-size: 1.3rem;
+}
+
+.section1 h5{
+  font-weight: 500;
+}
+
+.talleGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    padding: 5px;    
+  }
+
+  .talleItem {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .talleItem:hover {
+    border-color: #000;
+  }
+
+  .selected {
+    border: 1px solid #000;
+  }
+
+  .cantidadContainer {
+    display: flex;
+    align-items: center;
+  }
+  
+  .cantidadLabel {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+  
+  .cantidadControls {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #f1f1f1;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+  }
+  
+  .cantidadIconButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.4rem;
+    color: #333;
+    padding: 0.3rem;
+    transition: color 0.2s ease;
+  }
+  
+  .cantidadIconButton:hover {
+    color: #007bff;
+  }
+  
+  .cantidadValue {
+    font-size: 1.2rem;
+    margin: 0 1rem;
+    font-weight: bold;
+    min-width: 2rem;
+    text-align: center;
+  }
+  
+  .similares h2{
+    margin-left: 100px;
+    font-size:x-large;
+}
