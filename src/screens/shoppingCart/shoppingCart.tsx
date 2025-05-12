@@ -15,14 +15,15 @@ export default function ShoppingCart() {
           <Header/>
           <NavBar/>
         </div>
-        <div className={styles.cartTitle}>
-          <h2>Carrito de Compras</h2>
-        </div>
         <div className={styles.containerFlex}>
-          <div className={styles.tableProducts}>
-            <CartProducts/>
-            <DetailsCart/>
+        <div className={styles.tableProducts}>
+          <div className={styles.leftSection}>
+            <CartProducts />
           </div>
+          <div className={styles.rightSection}>
+            <DetailsCart />
+          </div>
+        </div>
           <div className={styles.detallesCart}>
           </div>
         </div>

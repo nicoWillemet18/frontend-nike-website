@@ -7,8 +7,11 @@ import heroImg from '../../assets/heroImg1.jpg';
 import ProductShowcase from "../../ui/productShowcase/productShowcase";
 import ProductSlice from "../../ui/productSilder/productSlice";
 import GenderSelection from "../../ui/genderSelection/genderSelection";
+import { useNavigate } from "react-router-dom";
 
 export default function Landing() {
+  const navigate = useNavigate();
+
     return (
       <>
       <div className={styles.landingContainer}>
@@ -21,7 +24,7 @@ export default function Landing() {
             title="CLÁSICOS INFALTABLES"
             subtitle="Disfruta del confort y el rendimiento que te acompañan en cada paso, con la calidad que solo una leyenda como Nike puede ofrecer."
             buttonText="Ver Colección"
-            buttonOnClick={() => console.log("¡Botón de 'Ver más' presionado!")}
+            buttonOnClick={() => navigate('/catalog')}
           />
         </div>
 
@@ -37,7 +40,7 @@ export default function Landing() {
             title="EMPEZAR LO QUE SE SIENTE BIEN"
             subtitle="Porque todo el mundo debería saber la sensación de correr con ese par perfecto."
             buttonText="Encuentra tus zapatillas"
-            buttonOnClick={() => console.log("¡Botón de 'Ver más' presionado!")}
+            buttonOnClick={() => navigate('/catalog')}
           />
         </div>
 
@@ -53,7 +56,7 @@ export default function Landing() {
             title="IMPRESCINDIBLES PARA EL VUELO"
             subtitle="Tus prendas duraderas para usar durante toda la semana, pero con el estilo que solo Jordan Brand puede ofrecerte."
             buttonText="Comprar"
-            buttonOnClick={() => console.log("¡Botón de 'Ver más' presionado!")}
+            buttonOnClick={() => navigate('/catalog')}
           />
         </div>
 

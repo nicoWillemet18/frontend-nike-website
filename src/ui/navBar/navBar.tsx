@@ -1,9 +1,11 @@
 import styles from './NavBar.module.css';
 import { FiSearch, FiShoppingBag } from 'react-icons/fi';
 import nikeLogo from '../../assets/NikeLogoSVG.svg';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function NavBar() {
+  const navigate = useNavigate();
   return (
     <nav className={styles.navbar}>
       <div className={styles.left}>
@@ -13,9 +15,9 @@ export default function NavBar() {
       </div>
 
       <div className={styles.center}>
-        <a href="#" className={styles.link}>Hombre</a>
-        <a href="#" className={styles.link}>Mujer</a>
-        <a href="#" className={styles.link}>Niño/a</a>
+        <a href="/catalog" className={styles.link}>Hombre</a>
+        <a href="/catalog" className={styles.link}>Mujer</a>
+        <a href="/catalog" className={styles.link}>Niño/a</a>
       </div>
 
       <div className={styles.right}>
@@ -27,7 +29,7 @@ export default function NavBar() {
             className={styles.searchInput}
             />
         </div>
-        <button className={styles.iconButton}>
+        <button className={styles.iconButton} onClick={() => navigate('/cart')}>
             <FiShoppingBag size={20} />
         </button>
     </div>

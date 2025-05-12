@@ -1,0 +1,38 @@
+.barItems{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 4rem;
+}
+
+
+.barItem{
+    display: flex;
+    gap: 50px;
+}
+
+.barItem h2{
+    display: flex;
+    align-items: center;
+}
+
+.barButton{
+    border: none;
+    font-size: 1.2rem;
+    background-color: #ffff;
+    cursor: pointer;
+}
+
+.listProducts {
+    display: flex;
+    width: 100%;
+  }
+  
+  .filterSection {
+    width: 18%;
+  }
+  
+  .tableSection {
+    width: 82%;
+  }
+  

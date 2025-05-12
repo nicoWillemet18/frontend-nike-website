@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import ProductCard from "../productCard/productCard";
 import styles from "./gridProducts.module.css";
+import { useNavigate } from "react-router-dom";
 
 interface Product {
   id: number;
   name: string;
   price: string;
   gender: string;
-  image: string; 
+  image: string;
 }
 
 interface GridProductsProps {
@@ -16,15 +17,19 @@ interface GridProductsProps {
 
 const GridProducts: React.FC<GridProductsProps> = ({ products }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 15; // 3 columnas x 10 filas
+  const productsPerPage = 15; // 15 productos por página
   const totalPages = Math.ceil(products.length / productsPerPage);
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+  const navigate = useNavigate();
 
-  // Cambiar página
-  const handlePageChange = (pageNumber: number) => {
-    setCurrentPage(pageNumber);
+  const handlePrev = () => {
+    if (currentPage > 1) setCurrentPage(currentPage - 1);
+  };
+
+  const handleNext = () => {
+    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
   };
 
   return (
@@ -32,7 +37,11 @@ const GridProducts: React.FC<GridProductsProps> = ({ products }) => {
       {/* Grid de productos */}
       <div className={styles.gridContainer}>
         {currentProducts.map((product) => (
-          <div className={styles.gridItem} key={product.id}>
+          <div
+            className={styles.gridItem}
+            key={product.id}
+            onClick={() => navigate(`/product/${product.id}`)}
+          >
             <ProductCard
               productName={product.name}
               productPrice={product.price}
@@ -42,19 +51,17 @@ const GridProducts: React.FC<GridProductsProps> = ({ products }) => {
         ))}
       </div>
 
-      {/* Paginación */}
-      <div className={styles.paginationWrapper}>
-        <div className={styles.pagination}>
-          {[...Array(totalPages)].map((_, index) => (
-            <button
-              key={index}
-              onClick={() => handlePageChange(index + 1)}
-              className={currentPage === index + 1 ? styles.activePage : ""}
-            >
-              {index + 1}
-            </button>
-          ))}
-        </div>
+      {/* Paginación estilo botones bonitos */}
+      <div className={styles.pagination}>
+        <button onClick={handlePrev} disabled={currentPage === 1}>
+          Anterior
+        </button>
+        <span>
+          Página {currentPage} de {totalPages}
+        </span>
+        <button onClick={handleNext} disabled={currentPage === totalPages}>
+          Siguiente
+        </button>
       </div>
     </div>
   );

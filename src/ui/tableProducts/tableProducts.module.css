@@ -1,0 +1,81 @@
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  overflow-y: scroll;
+}
+
+.tableRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100px;
+  border-bottom: 1px solid #ddd;
+  padding-right: 30px;
+}
+
+.productInfo {
+  flex: 1;
+}
+
+.productDetails {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.productImage {
+  width: 98px;
+  object-fit: cover;
+}
+
+.lightText {
+  color: #888; 
+  font-weight: 400;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+}
+
+.actionButtons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.trashButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: red;
+  font-size: 20px;
+}
+
+.pagination {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.pagination button {
+  padding: 8px 12px;
+  border: none;
+  background-color: #333;
+  color: white;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.pagination button:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
+}
+
+.outOfStock {
+  text-decoration: line-through;
+  opacity: 0.6;
+}

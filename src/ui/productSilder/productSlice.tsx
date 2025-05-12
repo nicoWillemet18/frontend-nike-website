@@ -1,8 +1,16 @@
 import React from 'react';
 import ProductCard from '../productCard/productCard'; 
 import styles from './ProductSlice.module.css';
+import { useNavigate } from 'react-router-dom';
 
-const ProductSlice: React.FC = () => {
+
+interface ProductSliceProps {
+  isAdmin?: boolean; 
+}
+
+
+const ProductSlice: React.FC<ProductSliceProps> = ({ isAdmin = false }) => {
+  const navigate = useNavigate();
   const products = [
     { 
       productName: "Nike Air Zoom", 
@@ -30,11 +38,20 @@ const ProductSlice: React.FC = () => {
     },
   ];
 
+  const handleClick = () => {
+    if (isAdmin) {
+      navigate(`/admin/edit-product/:id`);
+    } else {
+      navigate(`/product/:id`);
+    }
+  };
+
+
   return (
     <div className={styles.sliceContainer}>
       <button className={`${styles.arrowButton} ${styles.left}`}>&lt;</button>
 
-      <div className={styles.slice}>
+      <div className={styles.slice} onClick={handleClick}>
         {products.map((product, index) => (
           <ProductCard 
             key={index} 

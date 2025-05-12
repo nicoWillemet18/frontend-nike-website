@@ -1,0 +1,144 @@
+.mainContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.titleForm{
+    padding-top: 30px;
+}
+
+/* Formulario Principal */
+.fpForm {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    max-width: 880px;
+    margin: 20px;
+  }
+  
+  /* Sección izquierda */
+  .fpLeftSection {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .shippingOptions {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .label {
+    font-weight: 500;
+    color: #333;
+  }
+  
+  .radioLabel {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #555;
+  }
+
+  .radioLabel input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #CCCCCC;
+    border-radius: 4px;
+    background-color: white;
+    cursor: pointer;
+    position: relative;
+}
+
+.radioLabel input[type="radio"]:checked {
+    background-color: #CCCCCC;
+}
+
+  
+  /* Sección derecha (Resumen) */
+  .fpRightSection {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .fpFlexContainer {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .fpInput,
+  .fpSelect{
+    width: 100%;
+    max-width: 450px;
+    padding: 0.8rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+
+  .fpSelects{
+    width: 40%;
+    padding: 0.8rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+
+  .fpInput:focus,
+  .fpSelect:focus {
+    outline: none;
+    border: 1px solid #4caf50;
+    background-color: #ffffff;
+  }
+  
+  /* Resumen de la derecha */
+  .fpSummary {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .fpSummaryItem {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .fpSummaryImg{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+  }
+  
+  .fpBold {
+    font-weight: 600;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .fpLightText {
+    color: #777;
+    font-size: 14px;
+  }
+  
+  .fpImagePreview {
+    width: 208px;
+  }
+  
+  .fpButtons {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+  }
+  

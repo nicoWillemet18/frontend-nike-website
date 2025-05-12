@@ -1,19 +1,19 @@
 import Footer from '../../ui/footer/footer';
 import Header from '../../ui/header/header';
 import NavBar from '../../ui/navBar/navBar';
-import SignUpForm from '../../ui/signUpForm/signUpForm';
-import styles from './signUp.module.css'
+import LoginForm from '../../ui/logInForm/logInForm'
+import styles from './login.module.css'
 
-export default function SignUp() {
+export default function Login() {
 
   return (
     <>
-    <div className={styles.signUpContainer}>
+    <div className={styles.loginContainer}>
       <div>
         <Header/>
         <NavBar/>
       </div>
-      <SignUpForm/>
+      <LoginForm/>
       <Footer/>
     </div>
     </>

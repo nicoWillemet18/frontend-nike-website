@@ -20,7 +20,8 @@ const Header = () => {
         <img src={jordanLogo} alt="Jordan Logo" className={styles.logo} />
       </div>
       <div className={styles.right}>
-        <a href="/" className={styles.link}>Suscribite</a>
+        <a href="/login" className={styles.link}>Iniciá Sesión</a>
+        <a href="/sign-up" className={styles.link}>Registrate</a>
 
         <div className={styles.dropdownContainer} onMouseLeave={closeDropdown}>
           <button onClick={toggleDropdown} className={styles.link}>

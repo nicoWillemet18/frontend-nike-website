@@ -14,7 +14,7 @@ const Footer = () => {
             </div>
             <div className={styles.linkColumn}>
               <a href="/" className={styles.columnTitle}>Acerca de Nike</a>
-              <a href="/" className={styles.link}>Encontra tu calzado</a>
+              <a href="/catalog" className={styles.link}>Encontra tu calzado</a>
               <a href="/" className={styles.link}>Noticias</a>
             </div>
           </div>

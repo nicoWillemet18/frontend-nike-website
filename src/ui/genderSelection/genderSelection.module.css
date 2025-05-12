@@ -20,7 +20,18 @@
   }
   
   .customButtonWrapper {
+    display: flex;
+    gap: 10px;
     position: absolute;
     bottom: 10px;
     left: 10px;
   }  
+
+  .whiteButton {
+    background-color: white;
+    color: black;
+  }
+
+  .whiteButton:hover{
+    background-color: #d4d4d4;
+  }

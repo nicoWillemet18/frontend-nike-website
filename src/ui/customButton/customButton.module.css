@@ -15,4 +15,10 @@
   .customButton:hover {
     background-color: #424242;
   }
+
+  .disabledButton {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
   

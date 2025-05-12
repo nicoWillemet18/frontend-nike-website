@@ -1,0 +1,109 @@
+.signUpContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 2rem;
+    gap: 8px;
+}
+
+.logo {
+    width: 80px;
+    margin-bottom: 1rem;
+}
+
+.title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.input {
+    width: 100%;
+    max-width: 350px;
+    padding: 0.8rem 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.label {
+    width: 100%;
+    max-width: 350px;
+    font-size: 0.85rem;
+    color: #777;
+    margin-bottom: 0.3rem;
+}
+
+.infoText {
+    width: 100%;
+    max-width: 350px;
+    font-size: 0.9rem;
+    color: #777;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.inputGroup {
+    width: 100%;
+    max-width: 350px;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.radioLabel {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.8rem 1rem;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+    position: relative;
+}
+
+.hiddenRadio {
+    display: none;
+}
+
+.radioLabel:has(input:checked) {
+    border: 2px solid black;
+}
+
+.description {
+    width: 100%;
+    max-width: 350px;
+    font-size: 0.85rem;
+    color: #777;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.buttonSignUp {
+    width: 100%;
+    max-width: 350px;
+    margin-top: 15px;
+}
+
+.buttonSignUp button {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 3px;
+    margin-bottom: 1rem;
+}
+
+.joinText a {
+    font-weight: 600;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.joinText a:hover {
+    color: #555;
+}

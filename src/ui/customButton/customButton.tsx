@@ -2,14 +2,21 @@ import React from 'react';
 import styles from './customButton.module.css';
 
 interface CustomButtonProps {
-  text: string;
+  text?: string;
+  icon?: React.ReactNode;
   onClick?: () => void;
+  className?: string;
+  disabled?: boolean;
 }
 
-const CustomButton: React.FC<CustomButtonProps> = ({ text, onClick }) => {
+const CustomButton: React.FC<CustomButtonProps> = ({ text, icon, onClick, className, disabled }) => {
   return (
-    <button className={styles.customButton} onClick={onClick}>
-      {text}
+    <button
+      className={`${styles.customButton} ${className || ''} ${disabled ? styles.disabledButton : ''}`}
+      onClick={onClick}
+      disabled={disabled}
+    >
+      {icon ? icon : text}
     </button>
   );
 };

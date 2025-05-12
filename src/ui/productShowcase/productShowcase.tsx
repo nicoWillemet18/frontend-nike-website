@@ -1,8 +1,15 @@
 import React from 'react';
 import ProductCard from '../productCard/productCard'; 
 import styles from './ProductShowcase.module.css';
+import { useNavigate } from 'react-router-dom';
 
-const ProductShowcase: React.FC = () => {
+interface ProductShowcaseProps {
+  isAdmin?: boolean; 
+}
+
+const ProductShowcase: React.FC<ProductShowcaseProps> = ({isAdmin = false}) => {
+  const navigate = useNavigate();
+
   const products = [
     { 
       productName: "Nike Air Zoom", 
@@ -30,8 +37,16 @@ const ProductShowcase: React.FC = () => {
     },
   ];
 
+  const handleClick = () => {
+    if (isAdmin) {
+      navigate(`/admin/edit-product/:id`);
+    } else {
+      navigate(`/product/:id`);
+    }
+  };
+
   return (
-    <div className={styles.showcase}>
+    <div className={styles.showcase} onClick={handleClick}>
       {products.map((product, index) => (
         <ProductCard 
           key={index} 

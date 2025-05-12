@@ -5,11 +5,18 @@
     justify-content: space-between;
 }
 
-.tableProducts{
+.tableProducts {
     display: flex;
+    width: 100%;
+    padding: 0 70px;
 }
 
-.cartTitle{
-    padding-top: 30px;
-    padding-left: 100px;
+.leftSection {
+    flex: 7;
 }
+
+.rightSection {
+    flex: 3;
+}
+
+

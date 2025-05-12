@@ -1,0 +1,54 @@
+.adminHeader {
+    width: 100%;
+    background-color: #f5f5f5;
+    padding: 8px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    position: relative;
+    padding-right: 50px;
+  }
+  
+  .logo {
+    height: 20px;
+  }
+  
+  .right {
+    display: flex;
+    gap: 35px;
+    position: relative;
+  }
+  
+  .logoutButton {
+    background: none;
+    border: none;
+    color: #333;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
+  .user {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #555;
+  }
+
+  .admin{
+    text-align: center;
+    padding-top: 15px;
+  }
+  
+  .soporte {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 14px;
+    color: #111;
+    cursor: pointer;
+  }
+  
+  .soporte:hover {
+    opacity: 0.7;
+  }
