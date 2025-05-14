@@ -5,8 +5,13 @@ import NavBar from "../../ui/navBar/navBar";
 import GridProducts from "../../ui/gridProducts/gridProducts";
 import styles from "./catalog.module.css";
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import { useState } from "react";
+
 
 export default function Catalog() {
+
+  const [showFilters, setShowFilters] = useState(true);
+
   const products = Array.from({ length: 40 }, (_, i) => {
     let gender = '';
     if (i < 18) gender = 'Zapatillas para hombre';
@@ -22,7 +27,7 @@ export default function Catalog() {
     };
   });
 
-  return (
+  return (  
     <div className={styles.catalogContainer}>
       <div>
         <Header />
@@ -31,13 +36,21 @@ export default function Catalog() {
       <div className={styles.catalogItems}>
         <div className={styles.barItem}>
           <h2>Zapatillas (500)</h2>
-          <button>
-            Ocultar filtros <i className="bi bi-filter"></i>
+          <button onClick={() => setShowFilters(prev => !prev)}>
+            {showFilters ? "Ocultar filtros" : "Mostrar filtros"} <i className="bi bi-filter"></i>
           </button>
         </div>
         <div className={styles.filtersAndGrid}>
-          <Filter />
-          <GridProducts products={products} />
+          <div
+            className={`${styles.filterPanel} ${!showFilters ? styles.hideFilter : ""}`}
+          >
+            <Filter />
+          </div>
+          <div
+            className={`${styles.gridPanel} ${!showFilters ? styles.fullWidthGrid : ""}`}
+          >
+            <GridProducts products={products} />
+          </div>
         </div>
       </div>
       <Footer />

@@ -23,15 +23,32 @@
 }
 
 .filtersAndGrid {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px; 
-  }
-  
-  .filtersAndGrid > div:first-child {
-    flex: 0 0 25%;
-  }
-  
-  .filtersAndGrid > div:last-child {
-    flex: 1;
-  }
+  display: flex;
+  gap: 10px;
+  position: relative;
+  transition: all 0.5s ease;
+}
+
+.filterPanel {
+  flex: 0 0 18%;
+  max-width: 18%;
+  transition: all 0.5s ease;
+  opacity: 1;
+}
+
+.hideFilter {
+  flex: 0 0 0%;
+  max-width: 0;
+  opacity: 0;
+  overflow: hidden;
+}
+
+.gridPanel {
+  flex: 1;
+  transition: all 0.5s ease;
+}
+
+.fullWidthGrid {
+  margin: 0 auto;
+  max-width: 85%;
+}

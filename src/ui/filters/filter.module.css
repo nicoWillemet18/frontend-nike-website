@@ -16,12 +16,10 @@
     width: 100%;
     background: none;
     border: none;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     display: flex;
     justify-content: space-between;
-    align-items: center;
     cursor: pointer;
-    padding: 0.5rem 0;
     font-weight: 600;
   }
   
@@ -52,7 +50,6 @@
     justify-content: center;
     align-items: center;
     font-size: 1.2rem;
-    font-weight: 600;
     border-radius: 0.5rem;
   }
   
