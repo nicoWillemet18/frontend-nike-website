@@ -29,6 +29,7 @@ export default function ManageProducts() {
   });
 
   const handleEdit = (id: number) => {
+    navigate(`/admin/edit-product/:id`)
     console.log(`Editar producto con ID: ${id}`);
   };
 

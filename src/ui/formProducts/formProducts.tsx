@@ -3,10 +3,17 @@ import styles from './formProducts.module.css';
 import CustomButton from '../customButton/customButton';
 import imgProduct from '../../assets/imgCard.png'
 
-const FormProduct: React.FC = () => {
-  return (
+
+interface FormProductProps {
+    isEditMode?: boolean;
+  }
+
+  const FormProduct: React.FC<FormProductProps> = ({ isEditMode = false }) => {
+    return (
     <div className={styles.mainContainer}>
-    <h2 className={styles.titleForm}>Agregar Producto</h2>
+    <h2 className={styles.titleForm}>
+        {isEditMode ? 'Editar Producto' : 'Agregar Producto'}
+    </h2>
         <form className={styles.fpForm}>
         {/* Sección izquierda */}
         <div className={styles.fpLeftSection}>
@@ -17,8 +24,8 @@ const FormProduct: React.FC = () => {
             className={styles.fpInput}
             />
             <textarea
-            placeholder="Descripción"
-            className={styles.fpInput}
+                placeholder="Descripción"
+                className={styles.fpInput}
             />
             <input
             type="number"

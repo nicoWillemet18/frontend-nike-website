@@ -31,7 +31,9 @@ export default function Catalog() {
     <div className={styles.catalogContainer}>
       <div>
         <Header />
-        <NavBar />
+        <div className={styles.stickyNavBar}>
+          <NavBar />
+        </div>
       </div>
       <div className={styles.catalogItems}>
         <div className={styles.barItem}>

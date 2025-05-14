@@ -21,7 +21,7 @@ const AppRoutes = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/admin" element={<AdminPanel />} />
       <Route path="/admin/add-product" element={<AddProduct />} />
-      <Route path="/admin/edit-product/:id" element={<EditProduct />} />
+      <Route path="/admin/edit-product/:id" element={<EditProduct isEditMode={true}/>} />
       <Route path="/admin/manage-products" element={<ManageProducts />} />
     </Routes>
   );
