@@ -13,8 +13,8 @@ export default function AdminPanel() {
     return (
       <>
       <div className={styles.AdminContainer}>
-        <div>
-        <AdminHeader/>
+        <div className={styles.stickyHeader}>
+          <AdminHeader />
         </div>
 
         <section className={styles.section}>

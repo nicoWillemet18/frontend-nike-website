@@ -1,7 +1,7 @@
+import AdminHeader from '../../ui/adminHeader/adminHeader';
 import Footer from '../../ui/footer/footer';
 import FormProduct from '../../ui/formProducts/formProducts';
-import Header from '../../ui/header/header';
-import NavBar from '../../ui/navBar/navBar';
+import styles from './editProduct.module.css'
 
 interface Props {
   isEditMode?: boolean;
@@ -12,9 +12,8 @@ export default function EditProduct({ isEditMode = false }: Props) {
   return (
     <>
     <div>
-      <div>
-        <Header/>
-        <NavBar/>
+      <div className={styles.stickyHeader}>
+        <AdminHeader />
       </div>
       <FormProduct isEditMode={isEditMode} />
       <Footer/>

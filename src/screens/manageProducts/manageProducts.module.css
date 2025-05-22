@@ -3,8 +3,18 @@
     align-items: center;
     justify-content: space-between;
     padding: 1rem 4rem;
+    position: sticky;
+    top: 94px;
+    background-color: white;
+    z-index: 900;
 }
 
+.stickyHeader {
+    position: sticky;
+    top: 0;
+    z-index: 1000; 
+    background-color: #ffff;
+}
 
 .barItem{
     display: flex;
@@ -26,13 +36,36 @@
 .listProducts {
     display: flex;
     width: 100%;
-  }
+    align-items: flex-start;
+}
   
-  .filterSection {
-    width: 18%;
-  }
+.filterSection {
+  width: 18%;
+  position: sticky;
+  top: 168px;
+  background-color: white;
+  z-index: 800;
+  height: 60vh;
+  transition: width 0.5s ease, opacity 0.5s ease;
+  opacity: 1;
+  overflow: hidden;
+}
   
-  .tableSection {
-    width: 82%;
-  }
-  
+.tableSection {
+  width: 82%;
+  transition: margin 0.5s ease, width 0.5s ease;
+}
+
+.hideFilter {
+  width: 0;
+  opacity: 0;
+  transition: width 0.5s ease, opacity 0.5s ease;
+}
+
+.fullWidthTable {
+  width: 82%;
+  margin-left: auto;
+  margin-right: auto;
+  transition: margin 0.5s ease, width 0.5s ease;
+  display: block;
+}

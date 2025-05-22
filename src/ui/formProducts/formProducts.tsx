@@ -1,159 +1,193 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './formProducts.module.css';
 import CustomButton from '../customButton/customButton';
-import imgProduct from '../../assets/imgCard.png'
+import imgProduct from '../../assets/imgCard.png';
 
+const categorias = [
+  "Deportivas", "Urbanas", "Botines", "Basquet", "Skate", 
+  "Sandalias", "Tenis", "Air Max", "Jordan", "Edición Limitada", "Padel"
+];
 
 interface FormProductProps {
-    isEditMode?: boolean;
-  }
+  isEditMode?: boolean;
+}
 
-  const FormProduct: React.FC<FormProductProps> = ({ isEditMode = false }) => {
-    return (
+const FormProduct: React.FC<FormProductProps> = ({ isEditMode = false }) => {
+  const navigate = useNavigate();
+
+  const defaultProductData = {
+    nombre: 'Nike Court Vision Low',
+    descripcion: 'Zapatillas urbanas para hombre',
+    precio: '310000',
+    cantidad: '425',
+    categoria: 'Urbanas',
+    talle: '38',
+    genero: 'hombre',
+    envio: 'free',
+  };
+
+  const handleConfirm = () => {
+    // Lógica de guardado si se desea
+    navigate('/admin/manage-products');
+  };
+
+  const handleCancel = () => {
+    navigate('/admin/manage-products');
+  };
+
+  return (
     <div className={styles.mainContainer}>
-    <h2 className={styles.titleForm}>
+      <h2 className={styles.titleForm}>
         {isEditMode ? 'Editar Producto' : 'Agregar Producto'}
-    </h2>
-        <form className={styles.fpForm}>
+      </h2>
+      <form className={styles.fpForm}>
         {/* Sección izquierda */}
         <div className={styles.fpLeftSection}>
-            <h2>Ingresar detalles</h2>
-            <input
+          <h2>Ingresar detalles</h2>
+          <input
             type="text"
-            placeholder="Nombre del artículo"
+            placeholder={isEditMode ? defaultProductData.nombre : 'Nombre del artículo'}
             className={styles.fpInput}
-            />
-            <textarea
-                placeholder="Descripción"
-                className={styles.fpInput}
-            />
-            <input
+          />
+          <textarea
+            placeholder={isEditMode ? defaultProductData.descripcion : 'Descripción'}
+            className={styles.fpInput}
+          />
+          <input
             type="number"
-            placeholder="Precio"
+            placeholder={isEditMode ? defaultProductData.precio : 'Precio'}
             className={styles.fpInput}
-            />
-            <input
+          />
+          <input
             type="number"
-            placeholder="Cantidad"
+            placeholder={isEditMode ? defaultProductData.cantidad : 'Cantidad'}
             className={styles.fpInput}
-            />
-            <select className={styles.fpSelect}>
+          />
+          <select className={styles.fpSelect} defaultValue={isEditMode ? defaultProductData.categoria : ''}>
             <option value="">Seleccionar categoría</option>
-            <option value="zapatillas">Zapatillas</option>
-            <option value="ropa">Ropa</option>
-            <option value="accesorios">Accesorios</option>
-            </select>
+            {categorias.map((categoria) => (
+              <option key={categoria} value={categoria}>
+                {categoria}
+              </option>
+            ))}
+          </select>
 
-            {/* Desplegables de Talles y Género */}
-            <div className={styles.fpFlexContainer}>
-            <select className={styles.fpSelects}>
-                <option value="">Talle</option>
-                <option value="S">S</option>
-                <option value="M">M</option>
-                <option value="L">L</option>
-                <option value="XL">XL</option>
+          <div className={styles.fpFlexContainer}>
+            <select className={styles.fpSelects} defaultValue={isEditMode ? defaultProductData.talle : ''}>
+              <option value="">Talle</option>
+              {Array.from({ length: 21 }, (_, i) => {
+                const size = 36 + i * 0.5;
+                return (
+                  <option key={size} value={size}>
+                    {size % 1 === 0 ? size.toFixed(0) : size.toFixed(1)}
+                  </option>
+                );
+              })}
             </select>
-            <select className={styles.fpSelects}>
-                <option value="">Género</option>
-                <option value="hombre">Hombre</option>
-                <option value="mujer">Mujer</option>
-                <option value="unisex">Unisex</option>
+            <select className={styles.fpSelects} defaultValue={isEditMode ? defaultProductData.genero : ''}>
+              <option value="">Género</option>
+              <option value="hombre">Hombre</option>
+              <option value="mujer">Mujer</option>
+              <option value="unisex">Niño/a</option>
             </select>
-            </div>
+          </div>
 
-            {/* Envío */}
-            <div className={styles.shippingOptions}>
+          <div className={styles.shippingOptions}>
             <span className={styles.label}>Tipo de envío:</span>
             <label className={styles.radioLabel}>
-                <input
+              <input
                 type="radio"
                 name="shipping"
                 value="calculated"
-                />
-                Envío calculado
+                defaultChecked={isEditMode && defaultProductData.envio === 'calculated'}
+              />
+              Envío calculado
             </label>
             <label className={styles.radioLabel}>
-                <input
+              <input
                 type="radio"
                 name="shipping"
                 value="free"
-                />
-                Envío gratis
+                defaultChecked={isEditMode && defaultProductData.envio === 'free'}
+              />
+              Envío gratis
             </label>
-            </div>
+          </div>
 
-            {/* Subir imagen */}
-            <div className={styles.shippingOptions}>
-                <span className={styles.label}>Subir imagen</span>
+          <div className={styles.shippingOptions}>
+            <span className={styles.label}>Subir imagen</span>
+            <input
+              type="file"
+              placeholder="Seleccionar imagen"
+              className={styles.fpInput}
+            />
+          </div>
 
-                <input
-                type="file"
-                placeholder="Seleccionar imagen"
-                className={styles.fpInput}
-                />
-            </div>
-
-            {/* Confirmación de Administrador */}
-            <div className={styles.shippingOptions}>
-                <span className={styles.label}>Confirmación de Administrador</span>
-                <input
-                type="text"
-                placeholder="Usuario administrador"
-                className={styles.fpInput}
-                />
-                <input
-                type="password"
-                placeholder="Contraseña"
-                className={styles.fpInput}
-                />
-            </div>
+          <div className={styles.shippingOptions}>
+            <span className={styles.label}>Confirmación de Administrador</span>
+            <input
+              type="text"
+              placeholder='Usuario'
+              className={styles.fpInput}
+            />
+            <input
+              type="password"
+              placeholder="Contraseña"
+              className={styles.fpInput}
+            />
+          </div>
         </div>
 
         {/* Sección derecha (Resumen) */}
         <div className={styles.fpRightSection}>
-            <h2>Resumen</h2>
-            <div className={styles.fpSummary}>
+          <h2>Resumen</h2>
+          <div className={styles.fpSummary}>
             <div className={styles.fpSummaryItem}>
-                <span className={styles.fpBold}>Artículo:</span>
-                <span>Nike Court Vision Low</span>
+              <span className={styles.fpBold}>Artículo:</span>
+              <span>{defaultProductData.nombre}</span>
             </div>
             <div className={styles.fpSummaryItem}>
-                <span className={styles.fpLightText}>Precio:</span>
-                <span className={styles.fpLightText}>$310.000</span>
+              <span className={styles.fpLightText}>Precio:</span>
+              <span className={styles.fpLightText}>${defaultProductData.precio}</span>
             </div>
             <div className={styles.fpSummaryItem}>
-                <span className={styles.fpLightText}>Cantidad:</span>
-                <span className={styles.fpLightText}>425</span>
+              <span className={styles.fpLightText}>Cantidad:</span>
+              <span className={styles.fpLightText}>{defaultProductData.cantidad}</span>
             </div>
             <div className={styles.fpSummaryItem}>
-                <span className={styles.fpLightText}>Categoría:</span>
-                <span className={styles.fpLightText}>Urbanas</span>
+              <span className={styles.fpLightText}>Categoría:</span>
+              <span className={styles.fpLightText}>Urbanas</span>
             </div>
             <div className={styles.fpSummaryItem}>
-                <span className={styles.fpLightText}>Envío:</span>
-                <span className={styles.fpLightText}>Gratis</span>
+              <span className={styles.fpLightText}>Envío:</span>
+              <span className={styles.fpLightText}>Gratis</span>
             </div>
             <div className={styles.fpSummaryItem}>
-                <span className={styles.fpLightText}>Género:</span>
-                <span className={styles.fpLightText}>Hombre</span>
+              <span className={styles.fpLightText}>Género:</span>
+              <span className={styles.fpLightText}>Hombre</span>
+            </div>
+            <div className={styles.fpSummaryItem}>
+              <span className={styles.fpLightText}>Talle:</span>
+              <span className={styles.fpLightText}>38</span>
             </div>
 
             <div className={styles.fpSummaryImg}>
-                <span className={styles.fpBold}>Nike Court Vision Low</span>
-                <img src={imgProduct} alt="Producto" className={styles.fpImagePreview} />
+              <span className={styles.fpBold}>Nike Court Vision Low</span>
+              <img src={imgProduct} alt="Producto" className={styles.fpImagePreview} />
             </div>
 
             <div className={styles.fpSummaryImg}>
-                <span className={styles.fpLightText}>Zapatillas urbanas para hombre</span>
+              <span className={styles.fpLightText}>Zapatillas urbanas para hombre</span>
             </div>
-            </div>
+          </div>
 
-            <div className={styles.fpButtons}>
-                <CustomButton text="Confirmar"/>
-                <CustomButton text="Cancelar"/>
-            </div>
+          <div className={styles.fpButtons}>
+            <CustomButton text="Confirmar" onClick={handleConfirm} />
+            <CustomButton text="Cancelar" onClick={handleCancel} />
+          </div>
         </div>
-        </form>
+      </form>
     </div>
   );
 };
