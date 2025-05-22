@@ -29,11 +29,9 @@ export default function Catalog() {
 
   return (  
     <div className={styles.catalogContainer}>
-      <div>
         <Header />
-        <div className={styles.stickyNavBar}>
-          <NavBar />
-        </div>
+      <div className={styles.stickyNav}>
+        <NavBar />
       </div>
       <div className={styles.catalogItems}>
         <div className={styles.barItem}>
@@ -43,14 +41,10 @@ export default function Catalog() {
           </button>
         </div>
         <div className={styles.filtersAndGrid}>
-          <div
-            className={`${styles.filterPanel} ${!showFilters ? styles.hideFilter : ""}`}
-          >
+          <div className={`${styles.filterPanel} ${!showFilters ? styles.hideFilter : ""}`}>
             <Filter />
           </div>
-          <div
-            className={`${styles.gridPanel} ${!showFilters ? styles.fullWidthGrid : ""}`}
-          >
+          <div className={`${styles.gridPanel} ${!showFilters ? styles.fullWidthGrid : ""}`}>
             <GridProducts products={products} />
           </div>
         </div>

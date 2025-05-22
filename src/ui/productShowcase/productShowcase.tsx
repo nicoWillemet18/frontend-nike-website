@@ -34,7 +34,6 @@ const ProductShowcase: React.FC<ProductShowcaseProps> = ({ isAdmin = false }) =>
 
   return (
     <div className={styles.showcase} onClick={handleClick}>
-      {/* Aquí podrías mapear productos reales si tienes los datos */}
       <ProductCard 
         productName="Nike Air Zoom" 
         productPrice="$120.00" 
@@ -60,3 +59,8 @@ const ProductShowcase: React.FC<ProductShowcaseProps> = ({ isAdmin = false }) =>
 };
 
 export default ProductShowcase;
+
+
+
+
+

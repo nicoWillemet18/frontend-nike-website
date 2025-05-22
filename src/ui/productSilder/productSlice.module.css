@@ -39,8 +39,7 @@
 .slice {
   display: flex;
   gap: 20px;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  justify-content: center;
   margin: 0 auto;
   max-width: 1200px;
   padding: 20px;

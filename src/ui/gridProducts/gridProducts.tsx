@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ProductCard from "../productCard/productCard";
 import styles from "./gridProducts.module.css";
 import { useNavigate } from "react-router-dom";
@@ -23,6 +23,10 @@ const GridProducts: React.FC<GridProductsProps> = ({ products }) => {
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [currentPage]);
 
   const handlePrev = () => {
     if (currentPage > 1) setCurrentPage(currentPage - 1);

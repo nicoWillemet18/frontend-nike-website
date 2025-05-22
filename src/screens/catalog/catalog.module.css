@@ -1,14 +1,23 @@
 .catalogContainer{
-    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
+ .stickyNav {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+
 .barItem{
+  background-color: #ffff;
     display: flex;
     justify-content: space-between;
     padding: 1rem 4rem;
+    position: sticky;
+    top: 57px;
+    z-index: 1000;
 }
 
 .barItem h2{
@@ -34,6 +43,9 @@
   max-width: 18%;
   transition: all 0.5s ease;
   opacity: 1;
+  position: sticky;
+  top: 120px;
+  align-self: flex-start;
 }
 
 .hideFilter {

@@ -8,14 +8,13 @@ const Footer = () => {
         <div className={styles.linksContainer}>
           <div className={styles.linkColumnsWrapper}>
             <div className={styles.linkColumn}>
-              <a href="/" className={styles.columnTitle}>Ayuda</a>
+              <p className={styles.columnTitle}>Ayuda</p>
               <a href="/" className={styles.link}>Opciones de pago</a>
               <a href="/" className={styles.link}>Contactate</a>
             </div>
             <div className={styles.linkColumn}>
-              <a href="/" className={styles.columnTitle}>Acerca de Nike</a>
+              <p className={styles.columnTitle}>Acerca de Nike</p>
               <a href="/catalog" className={styles.link}>Encontra tu calzado</a>
-              <a href="/" className={styles.link}>Noticias</a>
             </div>
           </div>
           <div className={styles.socialsWrapper}>
@@ -35,8 +34,8 @@ const Footer = () => {
           <p>© 2025 Southbay S.R.L. Todos los derechos reservados.</p>
         </div>
         <div className={styles.footerRight}>
-          <a href="/" className={styles.link}>Términos y condiciones</a>
-          <a href="/" className={styles.link}>Política de privacidad y cookies</a>
+          <p className={styles.link}>Términos y condiciones</p>
+          <p className={styles.link}>Política de privacidad y cookies</p>
         </div>
       </div>
     </footer>

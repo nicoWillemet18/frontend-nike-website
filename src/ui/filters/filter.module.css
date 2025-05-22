@@ -1,6 +1,10 @@
 .filterContainer {
     width: 250px;
-    padding: 1rem 3rem;
+    padding: 1rem 1.2rem;
+    height: 63vh;
+    overflow-y: auto;
+    scrollbar-gutter: stable;
+
   }
   
   .section {
@@ -36,40 +40,32 @@
     cursor: pointer;
   }
   
-  .talleContainer {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  
-  .talleBox {
-    width: 50px;
-    height: 50px;
-    border: 1px solid #ccc;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.2rem;
-    border-radius: 0.5rem;
-  }
-  
-  .talleButton {
-    width: 35px;
-    height: 35px;
-    background-color: #f0f0f0;
-    border: none;
-    font-size: 1.5rem;
-    font-weight: 500;
-    cursor: pointer;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .talleButton:hover {
-    background-color: #ddd;
-  }
+  .talleGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.talleBox {
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  text-align: center;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.talleBox:hover {
+  background-color: #f0f0f0;
+  border-color: #999;
+}
+
+.talleBoxActive {
+  border-color: black;
+  background-color: #f6f6f6; 
+}
 
   .checkboxLabel {
     display: flex;
@@ -85,4 +81,20 @@
     height: 18px;
     accent-color: black;
   }
-  
+
+.dropdownContent {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  filter: blur(1px);
+  transition:
+    max-height 0.5s ease,
+    opacity 0.5s ease,
+    filter 0.5s ease;
+}
+
+.dropdownOpen {
+  max-height: 500px;
+  opacity: 1;
+  filter: blur(0);
+}

@@ -11,17 +11,11 @@ const generos = ["Hombre", "Mujer", "Niño/a"];
 const ordenarPor = ["Precio más bajo", "Precio más alto", "Más vendidos", "Nuevos"];
 
 export default function Filter() {
-  const [selectedTalle, setSelectedTalle] = useState<number>(36);
+  const [showTalle, setShowTalle] = useState(false);
   const [showGenero, setShowGenero] = useState(false);
   const [showOrdenar, setShowOrdenar] = useState(false);
+  const [selectedTalle, setSelectedTalle] = useState<number | null>(null);
 
-  const handleIncrement = () => {
-    setSelectedTalle((prev) => (prev < 46 ? prev + 1 : prev));
-  };
-
-  const handleDecrement = () => {
-    setSelectedTalle((prev) => (prev > 36 ? prev - 1 : prev));
-  };
 
   return (
     <aside className={styles.filterContainer}>
@@ -44,18 +38,23 @@ export default function Filter() {
           Género
           <i className={`bi ${showGenero ? "bi-chevron-up" : "bi-chevron-down"}`}></i>
         </button>
-        {showGenero && (
-          <ul className={styles.list}>
-            {generos.map((genero) => (
-              <li key={genero} className={styles.listItem}>
-                <label className={styles.checkboxLabel}>
-                  <input type="checkbox" className={styles.checkbox} />
-                  {genero}
-                </label>
-              </li>
-            ))}
-          </ul>
-        )}
+
+        <ul
+          className={`
+            ${styles.list} 
+            ${styles.dropdownContent} 
+            ${showGenero ? styles.dropdownOpen : ""}
+          `}
+        >
+          {generos.map((genero) => (
+            <li key={genero} className={styles.listItem}>
+              <label className={styles.checkboxLabel}>
+                <input type="checkbox" className={styles.checkbox} />
+                {genero}
+              </label>
+            </li>
+          ))}
+        </ul>
       </section>
 
       {/* Ordenar por (desplegable con checkbox) */}
@@ -67,27 +66,47 @@ export default function Filter() {
           Ordenar por
           <i className={`bi ${showOrdenar ? "bi-chevron-up" : "bi-chevron-down"}`}></i>
         </button>
-        {showOrdenar && (
-          <ul className={styles.list}>
-            {ordenarPor.map((orden) => (
-              <li key={orden} className={styles.listItem}>
-                <label className={styles.checkboxLabel}>
-                  <input type="checkbox" className={styles.checkbox} />
-                  {orden}
-                </label>
-              </li>
-            ))}
-          </ul>
-        )}
+
+        <ul
+          className={`
+            ${styles.list} 
+            ${styles.dropdownContent} 
+            ${showOrdenar ? styles.dropdownOpen : ""}
+          `}
+        >
+          {ordenarPor.map((orden) => (
+            <li key={orden} className={styles.listItem}>
+              <label className={styles.checkboxLabel}>
+                <input type="checkbox" className={styles.checkbox} />
+                {orden}
+              </label>
+            </li>
+          ))}
+        </ul>
       </section>
 
       {/* Talle */}
       <section className={styles.section}>
-        <h3 className={styles.title}>Talle</h3>
-        <div className={styles.talleContainer}>
-          <button className={styles.talleButton} onClick={handleDecrement}>-</button>
-          <div className={styles.talleBox}>{selectedTalle}</div>
-          <button className={styles.talleButton} onClick={handleIncrement}>+</button>
+        <button 
+          className={styles.toggleButton} 
+          onClick={() => setShowTalle(prev => !prev)}
+        >
+          Talle
+          <i className={`bi ${showTalle ? "bi-chevron-up" : "bi-chevron-down"}`}></i>
+        </button>
+
+        <div className={`${styles.dropdownContent} ${showTalle ? styles.dropdownOpen : ""}`}>
+          <div className={styles.talleGrid}>
+            {Array.from({ length: 21 }, (_, i) => 36 + i * 0.5).map((talle) => (
+              <div 
+                key={talle}
+                onClick={() => setSelectedTalle(talle)}
+                className={`${styles.talleBox} ${selectedTalle === talle ? styles.talleBoxActive : ""}`}
+              >
+                {talle}
+              </div>
+            ))}
+          </div>
         </div>
       </section>
     </aside>
