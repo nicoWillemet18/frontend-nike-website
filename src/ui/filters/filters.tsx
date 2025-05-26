@@ -8,7 +8,7 @@ const categorias = [
 
 const generos = ["Hombre", "Mujer", "Niño/a"];
 
-const ordenarPor = ["Precio más bajo", "Precio más alto", "Más vendidos", "Nuevos"];
+const ordenarPor = ["Precio más bajo", "Precio más alto"];
 
 export default function Filter() {
   const [showTalle, setShowTalle] = useState(false);
@@ -97,7 +97,7 @@ export default function Filter() {
 
         <div className={`${styles.dropdownContent} ${showTalle ? styles.dropdownOpen : ""}`}>
           <div className={styles.talleGrid}>
-            {Array.from({ length: 21 }, (_, i) => 36 + i * 0.5).map((talle) => (
+            {Array.from({ length: 11 }, (_, i) => 36 + i).map((talle) => (
               <div 
                 key={talle}
                 onClick={() => setSelectedTalle(talle)}

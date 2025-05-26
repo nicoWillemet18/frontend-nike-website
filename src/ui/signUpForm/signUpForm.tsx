@@ -24,14 +24,6 @@ const SignUpForm = () => {
                 Obtén una recompensa de miembro de Nike cada año en tu cumpleaños.
             </p>
 
-            <select className={styles.input}>
-                <option value="Argentina">Argentina</option>
-                <option value="Brasil">Brasil</option>
-                <option value="Chile">Chile</option>
-                <option value="México">México</option>
-                <option value="España">España</option>
-            </select>
-
             <div className={styles.inputGroup}>
                 <label className={styles.radioLabel}>
                     <input type="radio" name="gender" value="Masculino" className={styles.hiddenRadio} />

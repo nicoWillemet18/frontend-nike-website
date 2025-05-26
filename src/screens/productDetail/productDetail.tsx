@@ -13,8 +13,7 @@ export default function ProductDetail() {
   const [cantidad, setCantidad] = useState(1);
 
   const talles = [
-    36, 36.5, 37, 37.5, 38, 38.5, 39, 39.5, 40, 40.5,
-    41, 41.5, 42, 42.5, 43, 43.5, 44, 44.5, 45, 45.5, 46
+    36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46
   ];
   const incrementar = () => {
     if (cantidad < 10) setCantidad(cantidad + 1);
@@ -43,7 +42,7 @@ export default function ProductDetail() {
               <h3>$199.999</h3>
             </div>
             <div className={styles.section2}>
-            <h2>Talle</h2>
+            <h2>Talle:</h2>
               <div className={styles.talleGrid}>
                 {talles.map((talle) => (
                   <div

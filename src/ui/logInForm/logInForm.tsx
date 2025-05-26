@@ -13,20 +13,16 @@ const Login = () => {
         <input type="email" placeholder="Correo electrónico" className={styles.input} />
         <input type="password" placeholder="Contraseña" className={styles.input} />
 
-        <div className={styles.lineContainer}>
+        <div>
             <div className={styles.leftOption}>
-                <input type="checkbox" id="keepSignedIn" />
-                <label htmlFor="keepSignedIn"> Mantenerme registrado</label>
-            </div>
-            <div className={styles.rightOption}>
-                <a href="#">¿Olvidaste tu contraseña?</a>
+                <input type="checkbox" id="isAdmin" />
+                <label htmlFor="isAdmin"> Soy administrador</label>
             </div>
         </div>
 
         <div className={styles.lineContainer}>
-            <div className={styles.leftOption}>
-                <input type="checkbox" id="isAdmin" />
-                <label htmlFor="isAdmin"> Soy administrador</label>
+            <div className={styles.rightOption}>
+                <a href="#">¿Olvidaste tu contraseña?</a>
             </div>
             <div className={styles.rightOption}>
                 <a href="#">Contactá a soporte</a>

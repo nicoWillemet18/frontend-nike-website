@@ -27,10 +27,13 @@
 .table{
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 35px;
 }
 
 .section1{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
     line-height: 1.8rem;
     font-size: 1.3rem;
 }
@@ -39,14 +42,16 @@
   font-weight: 500;
 }
 
+.section2 h2{
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
 .talleGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
   padding: 5px;
-  
-  max-height: 200px;
-  overflow-y: auto;
 }
   .talleItem {
     padding: 10px;
@@ -70,6 +75,7 @@
   }
   
   .cantidadLabel {
+    font-size: 1.4rem;
     font-weight: 500;
     margin-bottom: 0.5rem;
   }
@@ -107,4 +113,14 @@
   .similares h2{
     margin-left: 100px;
     font-size:x-large;
+}
+
+.section3{
+  display: flex;
+  justify-content: center;
+}
+
+.section4{
+  display: flex;
+  justify-content: center;
 }

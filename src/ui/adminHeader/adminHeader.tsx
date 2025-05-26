@@ -11,14 +11,17 @@ const AdminHeader = () => {
     navigate("/login");
   };
 
-  const username = "Admin1";
+  const handleLogoClick = () => {
+    navigate("/admin");
+  };
 
+  const username = "Admin1";
 
   return (
     <div>
       <header className={styles.adminHeader}>
-        <div className={styles.left}>
-          <img src={nikeLogo} alt="Jordan Logo" className={styles.logo} />
+        <div className={styles.left} onClick={handleLogoClick} style={{ cursor: 'pointer' }}>
+          <img src={nikeLogo} alt="Nike Logo" className={styles.logo} />
         </div>
 
         <div className={styles.right}>
