@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './TableProducts.module.css';
 import { FaTrash } from 'react-icons/fa';
 import CustomButton from '../customButton/customButton';
@@ -26,6 +26,10 @@ const TableProducts: React.FC<TableProductsProps> = ({ products, onEdit, onDelet
   const startIndex = (currentPage - 1) * productsPerPage;
   const endIndex = startIndex + productsPerPage;
   const currentProducts = products.slice(startIndex, endIndex);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [currentPage]);
 
   const handlePrev = () => {
     if (currentPage > 1) setCurrentPage(currentPage - 1);

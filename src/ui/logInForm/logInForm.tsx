@@ -1,9 +1,22 @@
 import styles from './logInForm.module.css';
 import Logo from '../../assets/NikeLogoSVG.svg'
 import CustomButton from '../customButton/customButton';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-  return (
+    const [isAdmin, setIsAdmin] = useState(false);
+    const navigate = useNavigate();
+
+    const handleLogin = () => {
+        if (isAdmin) {
+        navigate('/admin');
+        } else {
+        console.log('Sesión iniciada como usuario normal');
+        }
+    };
+
+    return (
     <div className={styles.loginContainer}>
         <img src={Logo} alt="Nike Logo" className={styles.logo} />
         <h2 className={styles.title}>
@@ -15,8 +28,13 @@ const Login = () => {
 
         <div>
             <div className={styles.leftOption}>
-                <input type="checkbox" id="isAdmin" />
-                <label htmlFor="isAdmin"> Soy administrador</label>
+            <input
+                type="checkbox"
+                id="isAdmin"
+                checked={isAdmin}
+                onChange={() => setIsAdmin(!isAdmin)}
+            />
+            <label htmlFor="isAdmin"> Soy administrador</label>
             </div>
         </div>
 
@@ -32,7 +50,7 @@ const Login = () => {
         <p className={styles.description}>Al iniciar sesión, aceptas la Política de privacidad y los Términos de uso de Nike.</p>
 
         <div className={styles.buttonlogin}>
-            <CustomButton text="Iniciar Sesión" onClick={() => console.log('Sesión Iniciada')} />
+            <CustomButton text="Iniciar Sesión" onClick={handleLogin} />
         </div>
 
         <p className={styles.joinText}>

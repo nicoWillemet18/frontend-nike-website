@@ -7,6 +7,7 @@ import TableProducts from "../../ui/tableProducts/tableProducts";
 import styles from "./manageProducts.module.css";
 import { useNavigate } from "react-router-dom";
 import imgTable from "../../assets/imgCard.png"
+import { FiSearch } from "react-icons/fi";
 
 export default function ManageProducts() {
   const navigate = useNavigate();
@@ -50,7 +51,15 @@ export default function ManageProducts() {
           <h2>Zapatillas (500)</h2>
           <CustomButton text="Agregar producto" onClick={() => navigate('/admin/add-product')} />
         </div>
-        <div>
+        <div className={styles.right}>
+          <div className={styles.searchWrapper}>
+              <FiSearch size={16} className={styles.searchIcon} />
+              <input
+              type="text"
+              placeholder="Buscar"
+              className={styles.searchInput}
+              />
+          </div>
           <button 
             className={styles.barButton}
             onClick={() => setShowFilters(prev => !prev)}

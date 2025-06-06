@@ -17,7 +17,7 @@ interface GridProductsProps {
 
 const GridProducts: React.FC<GridProductsProps> = ({ products }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 15; // 15 productos por página
+  const productsPerPage = 15;
   const totalPages = Math.ceil(products.length / productsPerPage);
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;

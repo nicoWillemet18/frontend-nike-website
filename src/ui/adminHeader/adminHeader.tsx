@@ -32,7 +32,13 @@ const AdminHeader = () => {
             Usuario: {username}
           </div>
           <div className={styles.soporte}>
-            <span>Soporte</span>
+            <a
+                href="https://wa.me/5491127996935?text=Hola%20Nike%2C%20soy%20administrador%20y%20necesito%20soporte."
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Soporte
+              </a>
             <FiMessageCircle size={20} />
           </div>
         </div>

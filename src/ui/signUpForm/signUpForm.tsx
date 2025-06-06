@@ -19,10 +19,6 @@ const SignUpForm = () => {
             <input type="text" placeholder="Apellido" className={styles.input} />
             <label className={styles.label}>Fecha de nacimiento</label>
             <input type="date" className={styles.input} />
-            
-            <p className={styles.infoText}>
-                Obtén una recompensa de miembro de Nike cada año en tu cumpleaños.
-            </p>
 
             <div className={styles.inputGroup}>
                 <label className={styles.radioLabel}>

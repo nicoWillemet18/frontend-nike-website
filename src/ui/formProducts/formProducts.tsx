@@ -76,8 +76,8 @@ const FormProduct: React.FC<FormProductProps> = ({ isEditMode = false }) => {
           <div className={styles.fpFlexContainer}>
             <select className={styles.fpSelects} defaultValue={isEditMode ? defaultProductData.talle : ''}>
               <option value="">Talle</option>
-              {Array.from({ length: 21 }, (_, i) => {
-                const size = 36 + i * 0.5;
+              {Array.from({ length: 11 }, (_, i) => {
+                const size = 36 + i ;
                 return (
                   <option key={size} value={size}>
                     {size % 1 === 0 ? size.toFixed(0) : size.toFixed(1)}

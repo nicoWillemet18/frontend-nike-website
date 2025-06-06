@@ -69,3 +69,43 @@
   transition: margin 0.5s ease, width 0.5s ease;
   display: block;
 }
+
+.right{
+  display: flex;
+  gap: 25px;
+}
+
+.searchWrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  .searchIcon {
+    position: absolute;
+    left: 10px;
+    color: #CCCCCC;
+    pointer-events: none;
+
+  }
+  
+  .searchInput {
+    padding: 8px 12px 8px 32px;
+    background-color: #F5F5F5;
+    border: none;
+    border-radius: 15px;
+    color: #CCCCCC;
+    font-size: 14px;
+    outline: none;
+    width: 180px;
+    transition: width 0.3s ease-in-out;
+  }
+  
+  .searchInput:focus {
+    width: 250px;
+  }
+  
+  .searchInput::placeholder {
+    color: #CCCCCC;
+    font-weight: 600;
+  }

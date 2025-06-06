@@ -9,21 +9,26 @@ import AdminPanel from '../screens/adminPanel/adminPanel';
 import AddProduct from '../screens/addProduct/addProduct';
 import EditProduct from '../screens/editProduct/editProduct';
 import ManageProducts from '../screens/manageProducts/manageProducts';
+import ScrollToTop from "./scrollToTop";
+
 
 const AppRoutes = () => {
   return (
-    <Routes>
-      <Route path="/" element={<Landing />} />
-      <Route path="/catalog" element={<Catalog />} />
-      <Route path="/product/:id" element={<ProductDetail />} />
-      <Route path="/cart" element={<Cart />} />
-      <Route path="/sign-up" element={<SignUp />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/admin" element={<AdminPanel />} />
-      <Route path="/admin/add-product" element={<AddProduct />} />
-      <Route path="/admin/edit-product/:id" element={<EditProduct isEditMode={true}/>} />
-      <Route path="/admin/manage-products" element={<ManageProducts />} />
-    </Routes>
+    <>
+    <ScrollToTop />
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/catalog" element={<Catalog />} />
+        <Route path="/product/:id" element={<ProductDetail />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/admin" element={<AdminPanel />} />
+        <Route path="/admin/add-product" element={<AddProduct />} />
+        <Route path="/admin/edit-product/:id" element={<EditProduct isEditMode={true}/>} />
+        <Route path="/admin/manage-products" element={<ManageProducts />} />
+      </Routes>
+    </>
   );
 };
 

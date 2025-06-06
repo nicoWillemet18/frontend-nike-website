@@ -14,14 +14,14 @@ const ProductShowcase: React.FC<ProductShowcaseProps> = ({ isAdmin = false }) =>
   useEffect(() => {
     const loadProducts = async () => {
       try {
-        const data = await fetchProducts(); // Llamada a la API para obtener los productos
-        console.log('Productos obtenidos:', data); // Muestra los productos en la consola
+        const data = await fetchProducts(); 
+        console.log('Productos obtenidos:', data); 
       } catch (error) {
         console.error('Error al cargar los productos:', error);
       }
     };
 
-    loadProducts(); // Ejecuta la función al montar el componente
+    loadProducts();
   }, []);
 
   const handleClick = () => {
