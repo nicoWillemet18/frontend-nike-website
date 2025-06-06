@@ -1,6 +1,8 @@
 import React from 'react';
 import styles from './GenderSelection.module.css';
-import GenderImg from '../../assets/gender.jpg';
+import hombre from '../../assets/hombre.jpg'
+import mujer from '../../assets/mujer.jpg'
+import niños from '../../assets/niños.jpg'
 import CustomButton from '../customButton/customButton';
 import { useNavigate } from 'react-router-dom';
 
@@ -15,7 +17,7 @@ const GenderSelection: React.FC<GenderSelectionProps> = ({ isAdmin }) => {
   return (
     <div className={styles.container}>
       <div className={styles.imageWrapper}>
-        <img src={GenderImg} alt="Para hombre" className={styles.logo} />
+        <img src={hombre} alt="Para hombre" className={styles.logo} />
         <div className={styles.customButtonWrapper}>
           <CustomButton text="Para hombre" onClick={() => navigate('/catalog')} className={isAdmin ? styles.whiteButton : ''}/>
           {isAdmin && (
@@ -27,7 +29,7 @@ const GenderSelection: React.FC<GenderSelectionProps> = ({ isAdmin }) => {
       </div>
 
       <div className={styles.imageWrapper}>
-        <img src={GenderImg} alt="Para mujer" className={styles.logo} />
+        <img src={mujer} alt="Para mujer" className={styles.logo} />
         <div className={styles.customButtonWrapper}>
           <CustomButton text="Para mujer" onClick={() => navigate('/catalog')} className={isAdmin ? styles.whiteButton : ''}/>
           {isAdmin && (
@@ -39,7 +41,7 @@ const GenderSelection: React.FC<GenderSelectionProps> = ({ isAdmin }) => {
       </div>
 
       <div className={styles.imageWrapper}>
-        <img src={GenderImg} alt="Para niños" className={styles.logo} />
+        <img src={niños} alt="Para niños" className={styles.logo} />
         <div className={styles.customButtonWrapper}>
           <CustomButton text="Para niños" onClick={() => navigate('/catalog')} className={isAdmin ? styles.whiteButton : ''} />
           {isAdmin && (

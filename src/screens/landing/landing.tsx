@@ -3,7 +3,9 @@ import Header from "../../ui/header/header";
 import HeroImage from "../../ui/heroImage/heroImage";
 import NavBar from "../../ui/navBar/navBar";
 import styles from "./landing.module.css";
-import heroImg from '../../assets/heroImg1.jpg';
+import LandImg1 from '../../assets/Landing1.jpg';
+import LandImg2 from '../../assets/Landing2.jpg';
+import LandImg3 from '../../assets/Landing3.jpg';
 import ProductShowcase from "../../ui/productShowcase/productShowcase";
 import ProductSlice from "../../ui/productSilder/productSlice";
 import GenderSelection from "../../ui/genderSelection/genderSelection";
@@ -22,7 +24,7 @@ export default function Landing() {
         <div>
           <div className={styles.section}>
             <HeroImage 
-              imageSrc={heroImg} 
+              imageSrc={LandImg1} 
               title="CLÁSICOS INFALTABLES"
               subtitle="Disfruta del confort y el rendimiento que te acompañan en cada paso, con la calidad que solo una leyenda como Nike puede ofrecer."
               buttonText="Ver Colección"
@@ -38,7 +40,7 @@ export default function Landing() {
           <div className={styles.section}>
             <h2 className={styles.heroTitle}>Presentado</h2>
             <HeroImage 
-              imageSrc={heroImg} 
+              imageSrc={LandImg2} 
               title="EMPEZAR LO QUE SE SIENTE BIEN"
               subtitle="Porque todo el mundo debería saber la sensación de correr con ese par perfecto."
               buttonText="Encuentra tus zapatillas"
@@ -54,7 +56,7 @@ export default function Landing() {
           <div className={styles.section}>
             <h2 className={styles.heroTitle}>Descubrí lo nuevo</h2>
             <HeroImage 
-              imageSrc={heroImg} 
+              imageSrc={LandImg3} 
               title="IMPRESCINDIBLES PARA EL VUELO"
               subtitle="Tus prendas duraderas para usar durante toda la semana, pero con el estilo que solo Jordan Brand puede ofrecerte."
               buttonText="Comprar"

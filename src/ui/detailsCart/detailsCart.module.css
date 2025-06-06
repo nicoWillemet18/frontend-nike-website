@@ -1,5 +1,7 @@
 .detailsContainer{
   padding: 1.5rem;
+  padding-top: 6rem;
+
 }
 
 .items {
@@ -7,7 +9,7 @@
     background-color: #fff;
     text-align: center;
     display: flex;
-    gap: 1rem;
+    gap: 2.5rem;
     flex-direction: column;
     justify-content: center;
     height: 100%;  

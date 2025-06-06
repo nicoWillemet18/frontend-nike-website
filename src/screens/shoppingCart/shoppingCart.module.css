@@ -1,13 +1,14 @@
 .shoppingCartContainer{
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
 .tableProducts {
+    min-height: 90vh;
+    flex: 1;
     display: flex;
-    width: 100%;
     padding: 0 70px;
 }
 
@@ -17,6 +18,7 @@
 
 .rightSection {
     flex: 3;
+
 }
 
 

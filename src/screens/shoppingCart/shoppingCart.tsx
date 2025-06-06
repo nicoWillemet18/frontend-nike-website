@@ -16,16 +16,16 @@ export default function ShoppingCart() {
           <NavBar/>
         </div>
         <div className={styles.containerFlex}>
-        <div className={styles.tableProducts}>
-          <div className={styles.leftSection}>
-            <CartProducts />
+          <div className={styles.tableProducts}>
+            <div className={styles.leftSection}>
+              <CartProducts />
+            </div>
+            <div className={styles.rightSection}>
+              <DetailsCart />
+            </div>
           </div>
-          <div className={styles.rightSection}>
-            <DetailsCart />
-          </div>
-        </div>
-          <div className={styles.detallesCart}>
-          </div>
+            <div className={styles.detallesCart}>
+            </div>
         </div>
         <Footer/>
       </div>
