@@ -15,7 +15,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ productName, productPrice, pr
       <div className={styles.content}>
         <h3 className={styles.productName}>{productName}</h3>
         <h4 className={styles.productGender}>{productGender}</h4>
-        <p className={styles.productPrice}>{productPrice}</p>
+        <p className={styles.productPrice}>$ {productPrice}</p>
       </div>
     </div>
   );

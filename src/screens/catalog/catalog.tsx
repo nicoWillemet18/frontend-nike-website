@@ -11,21 +11,8 @@ import { useState } from "react";
 export default function Catalog() {
 
   const [showFilters, setShowFilters] = useState(true);
+  const [totalProductos, setTotalProductos] = useState(0);
 
-  const products = Array.from({ length: 40 }, (_, i) => {
-    let gender = '';
-    if (i < 18) gender = 'Zapatillas para hombre';
-    else if (i < 36) gender = 'Zapatillas para mujer';
-    else gender = 'Zapatillas para niño/a';
-
-    return {
-      id: i + 1,
-      name: `Zapatilla ${i + 1}`,
-      price: '$189.999',
-      gender,
-      image: ''
-    };
-  });
 
   return (  
     <div className={styles.catalogContainer}>
@@ -35,7 +22,7 @@ export default function Catalog() {
       </div>
       <div className={styles.catalogItems}>
         <div className={styles.barItem}>
-          <h2>Zapatillas (500)</h2>
+          <h2>Zapatillas ({totalProductos})</h2>
           <button onClick={() => setShowFilters(prev => !prev)}>
             {showFilters ? "Ocultar filtros" : "Mostrar filtros"} <i className="bi bi-filter"></i>
           </button>
@@ -45,7 +32,7 @@ export default function Catalog() {
             <Filter />
           </div>
           <div className={`${styles.gridPanel} ${!showFilters ? styles.fullWidthGrid : ""}`}>
-            <GridProducts products={products} />
+            <GridProducts setTotal={setTotalProductos} />
           </div>
         </div>
       </div>

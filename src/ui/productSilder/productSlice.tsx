@@ -1,30 +1,44 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ProductCard from '../productCard/productCard'; 
 import styles from './ProductSlice.module.css';
 import { useNavigate } from 'react-router-dom';
+import { ListarProductos } from '../../data/productsController/productsController';
 
 interface ProductSliceProps {
   isAdmin?: boolean; 
 }
 
+interface Producto {
+  id: number;
+  nombre: string;
+  precio: number;
+  genero: string;
+}
+
 const ProductSlice: React.FC<ProductSliceProps> = ({ isAdmin = false }) => {
   const navigate = useNavigate();
-
-  const products = [
-    { productName: "Nike Air Zoom", productPrice: "$120.00", productGender: "Zapatillas para hombre", size: "small" },
-    { productName: "Nike Air Max 270", productPrice: "$150.00", productGender: "Zapatillas para mujer", size: "small" },
-    { productName: "Nike React Infinity", productPrice: "$130.00", productGender: "Zapatillas para hombre", size: "small" },
-    { productName: "Nike Free Run 5.0", productPrice: "$110.00", productGender: "Zapatillas para mujer", size: "small" },
-    { productName: "Nike C1TY", productPrice: "$120.00", productGender: "Zapatillas para hombre", size: "small" },
-    { productName: "Air Max 10", productPrice: "$150.00", productGender: "Zapatillas para mujer", size: "small" },
-    { productName: "Nike Mountain", productPrice: "$130.00", productGender: "Zapatillas para hombre", size: "small" },
-    { productName: "Nike Jordan", productPrice: "$110.00", productGender: "Zapatillas para mujer", size: "small" },
-  ];
-
+  const [products, setProducts] = useState<Producto[]>([]);
   const [startIndex, setStartIndex] = useState(0);
   const visibleCount = 4;
 
+  useEffect(() => {
+    const loadProducts = async () => {
+      try {
+        const data = await ListarProductos();
+        setProducts(data.slice(0, 8));
+      } catch (error) {
+        console.error('Error al cargar productos:', error);
+      }
+    };
+
+    loadProducts();
+  }, []);
+
   const total = products.length;
+
+  if (total === 0) {
+    return <p>Cargando productos...</p>;
+  }
 
   const getVisibleProducts = () => {
     const visibleProducts = [];
@@ -42,31 +56,35 @@ const ProductSlice: React.FC<ProductSliceProps> = ({ isAdmin = false }) => {
     setStartIndex((prev) => (prev + 1) % total);
   };
 
-  const handleClick = (index: number) => {
+  const handleClick = (productId: number) => {
     if (isAdmin) {
-      navigate(`/admin/edit-product/${index}`);
+      navigate(`/admin/edit-product/${productId}`);
     } else {
-      navigate(`/product/${index}`);
+      navigate(`/product/${productId}`);
     }
   };
 
   return (
     <div className={styles.sliceContainer}>
-      <button className={`${styles.arrowButton} ${styles.left}`} onClick={handlePrev}>&lt;</button>
+      {total > visibleCount && (
+        <button className={`${styles.arrowButton} ${styles.left}`} onClick={handlePrev}>&lt;</button>
+      )}
 
       <div className={styles.slice}>
-        {getVisibleProducts().map((product, i) => (
-          <div key={startIndex + i} onClick={() => handleClick((startIndex + i) % total)}>
+        {getVisibleProducts().map((product) => (
+          <div key={product.id} onClick={() => handleClick(product.id)}>
             <ProductCard 
-              productName={product.productName} 
-              productPrice={product.productPrice} 
-              productGender={product.productGender} 
+              productName={product.nombre} 
+              productPrice={`${product.precio}`} 
+              productGender={`Zapatillas para ${product.genero}`} 
             />
           </div>
         ))}
       </div>
 
-      <button className={`${styles.arrowButton} ${styles.right}`} onClick={handleNext}>&gt;</button>
+      {total > visibleCount && (
+        <button className={`${styles.arrowButton} ${styles.right}`} onClick={handleNext}>&gt;</button>
+      )}
     </div>
   );
 };

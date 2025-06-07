@@ -3,18 +3,36 @@ import Header from '../../ui/header/header';
 import NavBar from '../../ui/navBar/navBar';
 import styles from './productDetail.module.css'
 import imgCard from '../../assets/imgCard.png'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CustomButton from '../../ui/customButton/customButton';
 import ProductShowcase from '../../ui/productShowcase/productShowcase';
+import { useParams } from 'react-router-dom';
+import { ListarProductoByID } from '../../data/productsController/productsController';
 
 
 export default function ProductDetail() {
+  const { id } = useParams<{ id: string }>();
+  const [producto, setProducto] = useState<any>(null);
   const [talleSeleccionado, setTalleSeleccionado] = useState<number | null>(null);
   const [cantidad, setCantidad] = useState(1);
 
   const talles = [
     36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46
   ];
+
+  useEffect(() => {
+    const cargarProducto = async () => {
+      if (!id) return;
+      try {
+        const data = await ListarProductoByID(Number(id)); // Asumiendo que el id es numérico
+        setProducto(data);
+      } catch (error) {
+        console.error("Error al cargar el producto", error);
+      }
+    };
+    cargarProducto();
+  }, [id]);
+
   const incrementar = () => {
     if (cantidad < 10) setCantidad(cantidad + 1);
   };
@@ -22,6 +40,10 @@ export default function ProductDetail() {
   const decrementar = () => {
     if (cantidad > 1) setCantidad(cantidad - 1);
   };
+
+  if (!producto) {
+    return <p>Cargando producto...</p>;
+  }
 
     return (
       <>
@@ -32,14 +54,18 @@ export default function ProductDetail() {
         </div>
         <div className={styles.detail}>
           <div className={styles.productImage}>
-            <h2>Nike C1TY</h2>
-            <img src={imgCard} alt="Imagen de produtcto" className={styles.img} />
+            <h2>{producto.nombre}</h2>
+            <img 
+              src={producto.imagen || imgCard} 
+              alt={`Imagen de producto ${producto.nombre}`} 
+              className={styles.img} 
+            />          
           </div>
           <div className={styles.table}>
             <div className={styles.section1}>
-              <h3>Nike C1TY</h3>
-              <h5>Zapatillas de moda para Hombre</h5>
-              <h3>$199.999</h3>
+              <h3>{producto.nombre}</h3>
+              <h5>{producto.descripcion}</h5>
+              <h3>${producto.precio}</h3>
             </div>
             <div className={styles.section2}>
             <h2>Talle:</h2>

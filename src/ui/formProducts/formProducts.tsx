@@ -4,6 +4,7 @@ import styles from './formProducts.module.css';
 import CustomButton from '../customButton/customButton';
 import imgProduct from '../../assets/imgCard.png';
 
+
 const categorias = [
   "Deportivas", "Urbanas", "Botines", "Basquet", "Skate", 
   "Sandalias", "Tenis", "Air Max", "Jordan", "Edición Limitada", "Padel"
@@ -168,7 +169,7 @@ const FormProduct: React.FC<FormProductProps> = ({ isEditMode = false }) => {
               <span className={styles.fpLightText}>Hombre</span>
             </div>
             <div className={styles.fpSummaryItem}>
-              <span className={styles.fpLightText}>Talle:</span>
+              <span className={styles.fpLightText}>Talle/s:</span>
               <span className={styles.fpLightText}>38</span>
             </div>
 

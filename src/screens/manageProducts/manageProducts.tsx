@@ -1,39 +1,55 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import AdminHeader from "../../ui/adminHeader/adminHeader";
 import CustomButton from "../../ui/customButton/customButton";
 import Filter from "../../ui/filters/filters";
 import Footer from "../../ui/footer/footer";
 import TableProducts from "../../ui/tableProducts/tableProducts";
 import styles from "./manageProducts.module.css";
-import { useNavigate } from "react-router-dom";
-import imgTable from "../../assets/imgCard.png"
 import { FiSearch } from "react-icons/fi";
+import { ListarProductos } from "../../data/productsController/productsController";
+import { Producto } from "../../types/products";
+import imgTable from "../../assets/imgCard.png";
 
 export default function ManageProducts() {
   const navigate = useNavigate();
   const [showFilters, setShowFilters] = useState(true);
+  const [products, setProducts] = useState<
+    {
+      id: number;
+      name: string;
+      gender: string;
+      price: string;
+      stock: number;
+      image: string;
+    }[]
+  >([]);
 
-  const products = Array.from({ length: 40 }, (_, i) => {
-    let gender = '';
-    if (i < 18) gender = 'Zapatillas para hombre';
-    else if (i < 36) gender = 'Zapatillas para mujer';
-    else gender = 'Zapatillas para niño/a';
+  useEffect(() => {
+    const fetchProductos = async () => {
+      try {
+        const data: Producto[] = await ListarProductos();
 
-    const stock = i >= 35 ? 0 : Math.floor(Math.random() * 20) + 1;
+        const mappedProducts = data.map((p, index) => ({
+          id: index, // o p.id si existe
+          name: p.nombre,
+          gender: p.genero,
+          price: `$${p.precio}`,
+          stock: Math.floor(Math.random() * 21), // stock aleatorio entre 0 y 20
+          image: imgTable, // imagen fija para todos
+        }));
 
-    return {
-      id: i + 1,
-      name: `Zapatilla ${i + 1}`,
-      price: '$189.999',
-      gender,
-      stock,
-      image: imgTable,
+        setProducts(mappedProducts);
+      } catch (error) {
+        console.error("Error al cargar productos:", error);
+      }
     };
-  });
+
+    fetchProductos();
+  }, []);
 
   const handleEdit = (id: number) => {
-    navigate(`/admin/edit-product/${id}`); 
-    console.log(`Editar producto con ID: ${id}`);
+    navigate(`/admin/edit-product/${id}`);
   };
 
   const handleDelete = (id: number) => {
@@ -48,33 +64,49 @@ export default function ManageProducts() {
 
       <section className={styles.barItems}>
         <div className={styles.barItem}>
-          <h2>Zapatillas (500)</h2>
-          <CustomButton text="Agregar producto" onClick={() => navigate('/admin/add-product')} />
+          <h2>Zapatillas ({products.length})</h2>
+          <CustomButton
+            text="Agregar producto"
+            onClick={() => navigate("/admin/add-product")}
+          />
         </div>
         <div className={styles.right}>
           <div className={styles.searchWrapper}>
-              <FiSearch size={16} className={styles.searchIcon} />
-              <input
+            <FiSearch size={16} className={styles.searchIcon} />
+            <input
               type="text"
               placeholder="Buscar"
               className={styles.searchInput}
-              />
+            />
           </div>
-          <button 
+          <button
             className={styles.barButton}
-            onClick={() => setShowFilters(prev => !prev)}
+            onClick={() => setShowFilters((prev) => !prev)}
           >
-            {showFilters ? "Ocultar filtros" : "Mostrar filtros"} <i className="bi bi-filter"></i>
+            {showFilters ? "Ocultar filtros" : "Mostrar filtros"}{" "}
+            <i className="bi bi-filter"></i>
           </button>
         </div>
       </section>
 
       <div className={styles.listProducts}>
-        <div className={`${styles.filterSection} ${!showFilters ? styles.hideFilter : ""}`}>
+        <div
+          className={`${styles.filterSection} ${
+            !showFilters ? styles.hideFilter : ""
+          }`}
+        >
           <Filter />
         </div>
-        <div className={`${styles.tableSection} ${!showFilters ? styles.fullWidthTable : ""}`}>
-          <TableProducts products={products} onEdit={handleEdit} onDelete={handleDelete} />
+        <div
+          className={`${styles.tableSection} ${
+            !showFilters ? styles.fullWidthTable : ""
+          }`}
+        >
+          <TableProducts
+            products={products}
+            onEdit={handleEdit}
+            onDelete={handleDelete}
+          />
         </div>
       </div>
 

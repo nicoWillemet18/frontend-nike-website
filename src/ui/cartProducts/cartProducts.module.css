@@ -1,5 +1,4 @@
 .cartConainer {
-  height: 60vh;
   display: flex;
   flex-direction: column;
   padding: 1rem;
