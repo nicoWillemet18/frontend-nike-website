@@ -8,6 +8,8 @@ import CustomButton from '../../ui/customButton/customButton';
 import ProductShowcase from '../../ui/productShowcase/productShowcase';
 import { useParams } from 'react-router-dom';
 import { ListarProductoByID } from '../../data/productsController/productsController';
+import { toast } from 'react-toastify';
+
 
 
 export default function ProductDetail() {
@@ -24,7 +26,7 @@ export default function ProductDetail() {
     const cargarProducto = async () => {
       if (!id) return;
       try {
-        const data = await ListarProductoByID(Number(id)); // Asumiendo que el id es numérico
+        const data = await ListarProductoByID(Number(id));
         setProducto(data);
       } catch (error) {
         console.error("Error al cargar el producto", error);
@@ -44,6 +46,41 @@ export default function ProductDetail() {
   if (!producto) {
     return <p>Cargando producto...</p>;
   }
+
+  function agregarAlCarrito(
+  producto: any,
+  cantidad: number,
+  talleSeleccionado: number | null
+) {
+  if (!talleSeleccionado) {
+    toast.error("Por favor selecciona un talle.");
+    return;
+  }
+
+  const nuevoItem = {
+    id: producto.id,
+    nombre: producto.nombre,
+    precio: producto.precio,
+    imagen: producto.imagen || '',
+    talle: talleSeleccionado,
+    cantidad: cantidad,
+  };
+
+  const carritoExistente = JSON.parse(localStorage.getItem("carrito") || "[]");
+
+  const indiceExistente = carritoExistente.findIndex(
+    (item: any) => item.id === nuevoItem.id && item.talle === nuevoItem.talle
+  );
+
+  if (indiceExistente !== -1) {
+    carritoExistente[indiceExistente].cantidad += cantidad;
+  } else {
+    carritoExistente.push(nuevoItem);
+  }
+
+  localStorage.setItem("carrito", JSON.stringify(carritoExistente));
+  toast.success("Producto agregado al carrito 🛒");
+}
 
     return (
       <>
@@ -103,7 +140,10 @@ export default function ProductDetail() {
             </div>
 
             <div className={styles.section4}>
-              <CustomButton text="Agregar al carrito" onClick={() => console.log('Agregado al carrito')}/>
+              <CustomButton
+                text="Agregar al carrito"
+                onClick={() => agregarAlCarrito(producto, cantidad, talleSeleccionado)}
+              />            
             </div>
           </div>
         </div>

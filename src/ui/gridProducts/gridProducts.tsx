@@ -13,7 +13,10 @@ const GridProducts: React.FC<GridProductsProps> = ({ setTotal }) => {
   const [products, setProducts] = useState<Producto[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 15;
-
+  const totalPages = Math.ceil(products.length / productsPerPage);
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -34,11 +37,6 @@ const GridProducts: React.FC<GridProductsProps> = ({ setTotal }) => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [currentPage]);
 
-  const totalPages = Math.ceil(products.length / productsPerPage);
-  const indexOfLastProduct = currentPage * productsPerPage;
-  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
-
   const handlePrev = () => {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
   };
@@ -58,7 +56,7 @@ const GridProducts: React.FC<GridProductsProps> = ({ setTotal }) => {
           >
             <ProductCard
               productName={product.nombre}
-              productPrice={`$${product.precio}`}
+              productPrice={`${product.precio}`}
               productGender={product.genero}
             />
           </div>

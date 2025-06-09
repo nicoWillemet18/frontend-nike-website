@@ -1,11 +1,9 @@
-/* Reset básico */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
   }
   
-  /* Estilos globales */
   body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     background-color: #ffffff;
@@ -16,3 +14,21 @@
     text-decoration: none;
     color: inherit;
   }
+
+  .Toastify__toast-container--top-center {
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  width: fit-content; 
+  max-width: 90vw; 
+}
+
+.Toastify__toast-container {
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  width: auto !important;
+  max-width: 400px;
+  pointer-events: auto;
+  z-index: 9999;
+}

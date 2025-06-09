@@ -7,6 +7,8 @@ interface CustomButtonProps {
   onClick?: () => void;
   className?: string;
   disabled?: boolean;
+    type?: "button" | "submit" | "reset";
+
 }
 
 const CustomButton: React.FC<CustomButtonProps> = ({ text, icon, onClick, className, disabled }) => {

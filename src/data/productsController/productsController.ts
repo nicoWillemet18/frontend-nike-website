@@ -2,7 +2,7 @@ import axios from 'axios';
 import { Producto } from '../../types/products';
 
 const API_URL = import.meta.env.VITE_API_BASE_URL;
-const TOKEN = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJOaWMiLCJpYXQiOjE3NDkzMjgyNDcsImV4cCI6MTc0OTQxNDY0N30.70XjqECSuHZRwF7bKiFTo3uGerzqn1pijWiYUzZHKuw';
+const TOKEN = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJOaWMiLCJpYXQiOjE3NDk0MjE2MDEsImV4cCI6MTc0OTUwODAwMX0.ffco-RWeWbA8uI56sF3n6B2soF9iKy5agD7X5x7kVgY';
 
 // Listar todos los productos
 export const ListarProductos = async () => {
@@ -12,7 +12,6 @@ export const ListarProductos = async () => {
         Authorization: `Bearer ${TOKEN}`
       }
     });
-    console.log(response.data)
     return response.data;
   } catch (error) {
     console.error('Error fetching products:', error);
