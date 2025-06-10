@@ -72,7 +72,7 @@ const FormProduct: React.FC<FormProductProps> = ({ isEditMode = false }) => {
     estado: true,
     stock: 300,
     genero: formData.genero,
-    talles: [{id:1}],
+    talles: [{ id: 1, numero: "36" }]
   };
 
   try {

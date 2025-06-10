@@ -1,5 +1,5 @@
 import styles from './NavBar.module.css';
-import { FiSearch, FiShoppingBag } from 'react-icons/fi';
+import { FiShoppingBag } from 'react-icons/fi';
 import nikeLogo from '../../assets/NikeLogoSVG.svg';
 import { useNavigate } from 'react-router-dom';
 
@@ -15,20 +15,12 @@ export default function NavBar() {
       </div>
 
       <div className={styles.center}>
-        <a href="/catalog" className={styles.link}>Hombre</a>
-        <a href="/catalog" className={styles.link}>Mujer</a>
-        <a href="/catalog" className={styles.link}>Niño/a</a>
+        <button className={styles.link} onClick={() => navigate('/catalog?genero=Hombre')}>Hombre</button>
+        <button className={styles.link} onClick={() => navigate('/catalog?genero=Mujer')}>Mujer</button>
+        <button className={styles.link} onClick={() => navigate('/catalog?genero=Niño/a')}>Niño/a</button>
       </div>
 
       <div className={styles.right}>
-        <div className={styles.searchWrapper}>
-          <FiSearch size={16} className={styles.searchIcon} />
-          <input
-            type="text"
-            placeholder="Buscar"
-            className={styles.searchInput}
-          />
-        </div>
         <button
           className={styles.iconButton}
           onClick={() => {

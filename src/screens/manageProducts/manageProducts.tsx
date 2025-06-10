@@ -25,6 +25,14 @@ export default function ManageProducts() {
     }[]
   >([]);
 
+
+  const [filtros, setFiltros] = useState({
+    genero: '',
+    categoriaId: null as number | null,
+    talle: '' as number | '',
+    orden: '',
+  });
+  
   useEffect(() => {
     const fetchProductos = async () => {
       try {
@@ -95,7 +103,7 @@ export default function ManageProducts() {
             !showFilters ? styles.hideFilter : ""
           }`}
         >
-          <Filter />
+            <Filter filtros={filtros} setFiltros={setFiltros} />
         </div>
         <div
           className={`${styles.tableSection} ${

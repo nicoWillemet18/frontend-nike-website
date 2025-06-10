@@ -36,9 +36,16 @@
   }
   
   .listItem {
-    margin-bottom: 0.3rem;
-    cursor: pointer;
-  }
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.active {
+  background-color: #000000;
+  color: white;
+}
   
   .talleGrid {
   display: grid;
