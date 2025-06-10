@@ -1,0 +1,21 @@
+[33md6615fa[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m Fusión y arreglo de conflictos
+[33m9bccc23[m Se manejan las rutas con los roles y token
+[33mafcf66c[m Se pueden filtrar productos, falta filtrar en admin
+[33m319938c[m Se maneja el carrito y la compra segun inicio de sesión
+[33m877f031[m Se puede registrar usuario y loguearse
+[33mdc815e0[m Funciona carrito con los productos agregados de la base
+[33m4922e6a[m Se comienzan a mostrar productos de la api, funciones en productsController
+[33m36ab7a8[m Se agregan imgenes y los .pem
+[33m640d0c5[m Modificaciones varias
+[33m928e47b[m Se cambian detalles en formulario de login y register, tambien en detalle producto
+[33m2a8e064[m Avances en diseños de las vistas de admin
+[33m5bc0241[m Ultimos arreglos visuales en navbar, filtros, gridproducts, footer
+[33mf676a9e[m Algunos arreglos en formProducts y catalog
+[33md8a286f[m Comienzo en llamadas a los endpoints
+[33m842a6a3[m Falta forProducts nada mas
+[33m51440d6[m Avance en carrito de compras
+[33m1b50c67[m arrglos en gridProducts
+[33m7efccd9[m Avance en catalog
+[33m0f588c6[m Avance en Catalog
+[33m8da9d7b[m Landing lista
+[33md6230ba[m Primer commit
