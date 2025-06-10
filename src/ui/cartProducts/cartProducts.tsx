@@ -4,6 +4,7 @@ import imgCard from '../../assets/imgCard.png';
 import { Producto } from '../../types/products';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import DeleteProduct from '../toastAlerts/DeleteProduct';
 
 
 interface ProductoEnCarrito extends Producto {
@@ -21,88 +22,25 @@ const CartProducts: React.FC = () => {
 
   const eliminarProducto = (index: number) => {
   toast(
-    <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-      <div
-        style={{
-          color: 'white',
-          fontWeight: '600',
-          textAlign: 'center',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
-        ¿Eliminar producto?
-        <div
-          style={{
-            marginTop: 12,
-            display: 'flex',
-            justifyContent: 'center',
-            gap: 12,
-            width: '100%',
-            maxWidth: 220,
-          }}
-        >
-          <button
-            onClick={() => {
-              const nuevoCarrito = [...productos];
-              nuevoCarrito.splice(index, 1);
-              setProductos(nuevoCarrito);
-              localStorage.setItem("carrito", JSON.stringify(nuevoCarrito));
-
-              window.dispatchEvent(new Event("carritoActualizado"));
-
-              toast.dismiss();
-              toast.success("Producto eliminado", { theme: 'dark' });
-            }}
-            style={{
-              backgroundColor: '#007A33',
-              color: 'white',
-              border: 'none',
-              borderRadius: 6,
-              padding: '8px 16px',
-              cursor: 'pointer',
-              fontWeight: '600',
-              boxShadow: '0 2px 8px rgba(0, 122, 51, 0.5)',
-              flex: 1,
-            }}
-          >
-            Sí
-          </button>
-          <button
-            onClick={() => toast.dismiss()}
-            style={{
-              backgroundColor: '#d33',
-              color: 'white',
-              border: 'none',
-              borderRadius: 6,
-              padding: '8px 16px',
-              cursor: 'pointer',
-              fontWeight: '600',
-              boxShadow: '0 2px 8px rgba(211, 51, 51, 0.5)',
-              flex: 1,
-            }}
-          >
-            No
-          </button>
-        </div>
-      </div>
-    </div>,
+    <DeleteProduct
+      onConfirm={() => {
+        const nuevoCarrito = [...productos];
+        nuevoCarrito.splice(index, 1);
+        setProductos(nuevoCarrito);
+        localStorage.setItem("carrito", JSON.stringify(nuevoCarrito));
+        window.dispatchEvent(new Event("carritoActualizado"));
+        toast.dismiss();
+        toast.success("Producto eliminado", { theme: 'dark' });
+      }}
+      onCancel={() => toast.dismiss()}
+    />,
     {
       position: "top-center",
-      autoClose: 1600,
+      autoClose: false,
       closeOnClick: false,
       closeButton: false,
       draggable: false,
-      pauseOnHover: false,
-      style: {
-        backgroundColor: '#111',
-        borderRadius: '10px',
-        boxShadow: '0 4px 12px rgba(0,0,0,0.7)',
-        minWidth: '320px',
-        fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-        fontSize: '1rem',
-      }
+      pauseOnHover: true,
     }
   );
 };

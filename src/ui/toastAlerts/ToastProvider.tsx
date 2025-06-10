@@ -3,11 +3,11 @@ import "react-toastify/dist/ReactToastify.css";
 
 const ToastProvider = () => (
   <ToastContainer
-    autoClose={1600}
+    autoClose={800}
     hideProgressBar={false}
     newestOnTop
     closeOnClick
-    pauseOnHover
+    pauseOnHover={false}
     draggable
     theme="colored"
     toastStyle={{

@@ -11,15 +11,14 @@ interface GenderSelectionProps {
 }
 
 const GenderSelection: React.FC<GenderSelectionProps> = ({ isAdmin }) => {
+  const navigate = useNavigate();
 
-    const navigate = useNavigate();
-  
   return (
     <div className={styles.container}>
       <div className={styles.imageWrapper}>
         <img src={hombre} alt="Para hombre" className={styles.logo} />
         <div className={styles.customButtonWrapper}>
-          <CustomButton text="Para hombre" onClick={() => navigate('/catalog')} className={isAdmin ? styles.whiteButton : ''}/>
+          <CustomButton text="Para hombre" onClick={() => navigate('/catalog?genero=Hombre')} className={isAdmin ? styles.whiteButton : ''} />
           {isAdmin && (
             <div className={styles.modifyButtonWrapper}>
               <CustomButton text="Modificar" onClick={() => console.log('Modificar género hombre')} />
@@ -31,10 +30,10 @@ const GenderSelection: React.FC<GenderSelectionProps> = ({ isAdmin }) => {
       <div className={styles.imageWrapper}>
         <img src={mujer} alt="Para mujer" className={styles.logo} />
         <div className={styles.customButtonWrapper}>
-          <CustomButton text="Para mujer" onClick={() => navigate('/catalog')} className={isAdmin ? styles.whiteButton : ''}/>
+          <CustomButton text="Para mujer" onClick={() => navigate('/catalog?genero=Mujer')} className={isAdmin ? styles.whiteButton : ''} />
           {isAdmin && (
             <div className={styles.modifyButtonWrapper}>
-              <CustomButton text="Modificar" onClick={() => console.log('Modificar género hombre')} />
+              <CustomButton text="Modificar" onClick={() => console.log('Modificar género mujer')} />
             </div>
           )}
         </div>
@@ -43,10 +42,10 @@ const GenderSelection: React.FC<GenderSelectionProps> = ({ isAdmin }) => {
       <div className={styles.imageWrapper}>
         <img src={niños} alt="Para niños" className={styles.logo} />
         <div className={styles.customButtonWrapper}>
-          <CustomButton text="Para niños" onClick={() => navigate('/catalog')} className={isAdmin ? styles.whiteButton : ''} />
+          <CustomButton text="Para niños" onClick={() => navigate('/catalog?genero=Niño/a')} className={isAdmin ? styles.whiteButton : ''} />
           {isAdmin && (
             <div className={styles.modifyButtonWrapper}>
-              <CustomButton text="Modificar" onClick={() => console.log('Modificar género hombre')} />
+              <CustomButton text="Modificar" onClick={() => console.log('Modificar género niños')} />
             </div>
           )}
         </div>

@@ -2,16 +2,11 @@ import axios from 'axios';
 import { Producto } from '../../types/products';
 
 const API_URL = import.meta.env.VITE_API_BASE_URL;
-const TOKEN = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJuaWNvMjAzMCIsImlhdCI6MTc0OTUwODQwMiwiZXhwIjoxNzQ5NTk0ODAyfQ.U6GKDMqR75BjR5sZXmZ7t_NaBfOBPueDEoKO_SZWzEM';
 
 // Listar todos los productos
 export const ListarProductos = async () => {
   try {
-    const response = await axios.get(`${API_URL}api/productos`, {
-      headers: {
-        Authorization: `Bearer ${TOKEN}`
-      }
-    });
+    const response = await axios.get(`${API_URL}api/productos`);
     return response.data;
   } catch (error) {
     console.error('Error fetching products:', error);
@@ -22,9 +17,10 @@ export const ListarProductos = async () => {
 // Crear nuevo producto
 export const CrearProducto = async (nuevoProducto: Producto) => {
   try {
+    const token = localStorage.getItem('token');
     const response = await axios.post(`${API_URL}api/productos`, nuevoProducto, {
       headers: {
-        Authorization: `Bearer ${TOKEN}`,
+        Authorization: token ? `Bearer ${token}` : '',
         'Content-Type': 'application/json'
       }
     });
@@ -45,11 +41,7 @@ export const CrearProducto = async (nuevoProducto: Producto) => {
 // Producto por id
 export const ListarProductoByID = async (id: number) => {
   try {
-    const response = await axios.get(`${API_URL}api/productos/${id}`, {
-      headers: {
-        Authorization: `Bearer ${TOKEN}`
-      }
-    });
+    const response = await axios.get(`${API_URL}api/productos/${id}`);
     return response.data;
   } catch (error) {
     console.error('Error fetching product by ID:', error);
