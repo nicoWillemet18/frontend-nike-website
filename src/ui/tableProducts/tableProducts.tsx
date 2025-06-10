@@ -81,7 +81,7 @@ const TableProducts: React.FC<TableProductsProps> = ({ products, onEdit, onDelet
         </button>
       </div>
     </div>
-  );
+  );  
 };
 
 export default TableProducts;

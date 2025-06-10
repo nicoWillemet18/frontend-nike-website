@@ -18,7 +18,7 @@ interface GridProductsProps {
 const GridProducts: React.FC<GridProductsProps> = ({ setTotal, filtros }) => {
   const [products, setProducts] = useState<Producto[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 15;
+  const productsPerPage = 22;
   const navigate = useNavigate();
 
   // Cargar todos los productos
@@ -100,6 +100,7 @@ const GridProducts: React.FC<GridProductsProps> = ({ setTotal, filtros }) => {
             onClick={() => navigate(`/product/${product.id}`)}
           >
             <ProductCard
+              productImage={product.imagen}
               productName={product.nombre}
               productPrice={`${product.precio}`}
               productGender={product.genero}

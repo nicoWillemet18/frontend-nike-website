@@ -25,18 +25,25 @@ export default function ManageProducts() {
     }[]
   >([]);
 
+  const [filtros, setFiltros] = useState({
+    genero: '',
+    categoriaId: null as number | null,
+    talle: '' as number | '',
+    orden: '',
+  });
+
   useEffect(() => {
     const fetchProductos = async () => {
       try {
         const data: Producto[] = await ListarProductos();
 
         const mappedProducts = data.map((p, index) => ({
-          id: index, // o p.id si existe
+          id: index,
           name: p.nombre,
           gender: p.genero,
           price: `$${p.precio}`,
-          stock: Math.floor(Math.random() * 21), // stock aleatorio entre 0 y 20
-          image: p.imagen ||imgTable, 
+          stock: Math.floor(Math.random() * 21),
+          image: p.imagen || imgTable,
         }));
 
         setProducts(mappedProducts);
@@ -95,7 +102,7 @@ export default function ManageProducts() {
             !showFilters ? styles.hideFilter : ""
           }`}
         >
-          <Filter />
+          <Filter filtros={filtros} setFiltros={setFiltros} />
         </div>
         <div
           className={`${styles.tableSection} ${

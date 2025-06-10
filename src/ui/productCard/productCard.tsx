@@ -1,17 +1,17 @@
 import React from 'react';
 import styles from './ProductCard.module.css';
-import imgCard from '../../assets/imgCard.png';
 
 interface ProductCardProps {
+  productImage: string;
   productName: string;
   productPrice: string;
   productGender: string;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ productName, productPrice, productGender }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ productImage, productName, productPrice, productGender }) => {
   return (
     <div className={styles.card}>
-      <img src={imgCard} alt={productName} className={styles.image} />
+      <img src={productImage} alt={productName} className={styles.image} />
       <div className={styles.content}>
         <h3 className={styles.productName}>{productName}</h3>
         <h4 className={styles.productGender}>{productGender}</h4>
