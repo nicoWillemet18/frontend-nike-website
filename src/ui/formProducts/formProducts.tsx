@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './formProducts.module.css';
 import CustomButton from '../customButton/customButton';
-import imgProduct from '../../assets/imgCard.png';
+import noImage from '../../assets/noImage.jpg';
 import { CrearProducto } from '../../data/productsController/productsController';
 import { Producto } from '../../types/products';
+import Swal from "sweetalert2";
+import { IImage } from '../../types/IImage';
+import { uploadImages } from '../../data/productsController/imageController';
+
 
 const categorias = [
   { id: 1, nombre: "Deportivas" },
@@ -25,7 +29,17 @@ interface FormProductProps {
 }
 
 const FormProduct: React.FC<FormProductProps> = ({ isEditMode = false }) => {
+
   const navigate = useNavigate();
+
+
+  // Estado para almacenar las imágenes obtenidas de la API
+  const [images, setImages] = useState([noImage]);
+  // Referencia al input de tipo archivo para poder limpiar su valor luego
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  // Estado para almacenar archivos seleccionados para subir
+  const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
 
   const defaultProductData = {
     nombre: 'Nike Court Vision Low',
@@ -36,6 +50,7 @@ const FormProduct: React.FC<FormProductProps> = ({ isEditMode = false }) => {
     talle: '38',
     genero: 'hombre',
     envio: 'free',
+    imagen: '',
   };
 
   // Estado para manejar los valores del formulario
@@ -48,6 +63,7 @@ const FormProduct: React.FC<FormProductProps> = ({ isEditMode = false }) => {
     talle: isEditMode ? defaultProductData.talle : '',
     genero: isEditMode ? defaultProductData.genero : '',
     envio: isEditMode ? defaultProductData.envio : 'free',
+    imagen: isEditMode ? defaultProductData.imagen : '',
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -59,35 +75,110 @@ const FormProduct: React.FC<FormProductProps> = ({ isEditMode = false }) => {
   };
 
   const handleConfirm = async (e: React.FormEvent) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  // Armar payload con datos del formulario
-  const payload : Producto = {
-    nombre: formData.nombre,
-    categoriaId: parseInt(formData.categoria, 10) || 2,
-    color: 3,
-    precio: parseFloat(formData.precio),
-    descripcion: formData.descripcion,
-    imagen: "https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/b2337b4a-e174-4e6c-9f5f-1f7b931ea39e/dunk-low-retro-zapatillas-Sk74kx.png", // imagen fija por ahora
-    estado: true,
-    stock: 300,
-    genero: formData.genero,
-    talles: [{id:1}],
+    // Armar payload con datos del formulario
+    const payload: Producto = {
+      nombre: formData.nombre,
+      categoriaId: parseInt(formData.categoria, 10) || 2,
+      color: 3,
+      precio: parseFloat(formData.precio),
+      descripcion: formData.descripcion,
+      imagen: images[0],
+      estado: true,
+      stock: 300,
+      genero: formData.genero,
+      talles: [{ id: 1 }],
+    };
+
+    try {
+      await CrearProducto(payload);
+      alert('Producto creado con éxito!');
+      navigate('/admin/manage-products');
+    } catch (error) {
+      alert('Error al crear producto. Intenta nuevamente.');
+      console.error('Error al crear producto:', error);
+    }
   };
-
-  try {
-    await CrearProducto(payload);
-    alert('Producto creado con éxito!');
-    navigate('/admin/manage-products');
-  } catch (error) {
-    alert('Error al crear producto. Intenta nuevamente.');
-    console.error('Error al crear producto:', error);
-  }
-};
 
   const handleCancel = () => {
     navigate('/admin/manage-products');
   };
+
+
+
+
+  const swalAlert = (
+    title: string,
+    content: string,
+    icon: "error" | "success"
+  ) => {
+    Swal.fire(title, content, icon);
+  };
+
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedFiles(event.target.files); // Guardamos los archivos seleccionados en el estado
+  };
+
+  const uploadFiles = async () => {
+    if (!selectedFiles) {
+      // Mostrar mensaje de advertencia si no se seleccionaron archivos
+      return Swal.fire(
+        "No hay imágenes seleccionadas",
+        "Selecciona al menos una imagen",
+        "warning"
+      );
+    }
+
+    // Mostrar un mensaje de carga mientras se suben los archivos
+    Swal.fire({
+      title: "Subiendo imágenes...",
+      text: "Espere mientras se suben los archivos.",
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
+
+    try {
+      // Realizar la petición POST utilizando la función importada
+      const response = await uploadImages(selectedFiles);
+
+      Swal.close(); // Cerramos la alerta de carga
+
+      if (response.ok) {
+        // Mostrar mensaje de éxito si la subida fue exitosa
+        const res = await uploadImages(selectedFiles);
+        const responseData = await res.json(); // <- esto obtiene los datos
+console.log(responseData.urls);
+
+        setImages(responseData.urls); // asumiendo que responseData tiene esa forma
+
+        swalAlert("Éxito", "Imágenes subidas correctamente", "success");
+        //loadImages(); // Actualizar la lista de imágenes después de subirlas
+      } else {
+        // Mostrar mensaje de error si la subida falló
+        swalAlert(
+          "Error",
+          "Algo falló al subir las imágenes, inténtalo de nuevo.",
+          "error"
+        );
+      }
+    } catch (error) {
+      // Mostrar mensaje de error si ocurre una excepción
+      console.log(error);
+      
+      Swal.close();
+      swalAlert("Error", "Algo falló, contacta al desarrollador.", "error");
+      console.error("Error:", error);
+    }
+
+    // Limpiar el input de archivos y el estado después de subirlos
+    if (inputRef.current) inputRef.current.value = "";
+    setSelectedFiles(null);
+  };
+
 
   return (
     <div className={styles.mainContainer}>
@@ -132,7 +223,7 @@ const FormProduct: React.FC<FormProductProps> = ({ isEditMode = false }) => {
           <select
             className={styles.fpSelect}
             name="categoria"
-            value={formData.categoria} 
+            value={formData.categoria}
             onChange={handleChange}
           >
             <option value="">Seleccionar categoría</option>
@@ -202,7 +293,10 @@ const FormProduct: React.FC<FormProductProps> = ({ isEditMode = false }) => {
             <input
               type="file"
               className={styles.fpInput}
+              onChange={handleFileChange}
             />
+            <CustomButton text="Subir Imagen" onClick={uploadFiles} />
+
           </div>
 
           <div className={styles.shippingOptions}>
@@ -257,7 +351,7 @@ const FormProduct: React.FC<FormProductProps> = ({ isEditMode = false }) => {
 
             <div className={styles.fpSummaryImg}>
               <span className={styles.fpBold}>Nike Court Vision Low</span>
-              <img src={imgProduct} alt="Producto" className={styles.fpImagePreview} />
+              <img src={ images[0] || ""} alt="Producto" className={styles.fpImagePreview} />
             </div>
 
             <div className={styles.fpSummaryImg}>

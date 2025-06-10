@@ -36,7 +36,7 @@ export default function ManageProducts() {
           gender: p.genero,
           price: `$${p.precio}`,
           stock: Math.floor(Math.random() * 21), // stock aleatorio entre 0 y 20
-          image: imgTable, // imagen fija para todos
+          image: p.imagen ||imgTable, 
         }));
 
         setProducts(mappedProducts);
