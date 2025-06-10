@@ -6,17 +6,16 @@ import imgCard from '../../assets/imgCard.png'
 import { useEffect, useState } from 'react';
 import CustomButton from '../../ui/customButton/customButton';
 import ProductShowcase from '../../ui/productShowcase/productShowcase';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { ListarProductoByID } from '../../data/productsController/productsController';
 import { toast } from 'react-toastify';
-
-
 
 export default function ProductDetail() {
   const { id } = useParams<{ id: string }>();
   const [producto, setProducto] = useState<any>(null);
   const [talleSeleccionado, setTalleSeleccionado] = useState<number | null>(null);
   const [cantidad, setCantidad] = useState(1);
+  const navigate = useNavigate();
 
   const talles = [
     36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46
@@ -48,42 +47,48 @@ export default function ProductDetail() {
   }
 
   function agregarAlCarrito(
-  producto: any,
-  cantidad: number,
-  talleSeleccionado: number | null
-) {
-  if (!talleSeleccionado) {
-    toast.error("Por favor selecciona un talle.");
-    return;
+    producto: any,
+    cantidad: number,
+    talleSeleccionado: number | null
+  ) {
+    const usuario = localStorage.getItem('usuario');
+    if (!usuario) {
+      navigate('/login');
+      return;
+    }
+
+    if (!talleSeleccionado) {
+      toast.error("Por favor selecciona un talle.");
+      return;
+    }
+
+    const nuevoItem = {
+      id: producto.id,
+      nombre: producto.nombre,
+      precio: producto.precio,
+      imagen: producto.imagen || '',
+      talle: talleSeleccionado,
+      cantidad: cantidad,
+    };
+
+    const carritoExistente = JSON.parse(localStorage.getItem("carrito") || "[]");
+
+    const indiceExistente = carritoExistente.findIndex(
+      (item: any) => item.id === nuevoItem.id && item.talle === nuevoItem.talle
+    );
+
+    if (indiceExistente !== -1) {
+      carritoExistente[indiceExistente].cantidad += cantidad;
+    } else {
+      carritoExistente.push(nuevoItem);
+    }
+
+    localStorage.setItem("carrito", JSON.stringify(carritoExistente));
+    toast.success("Producto agregado al carrito 🛒");
   }
 
-  const nuevoItem = {
-    id: producto.id,
-    nombre: producto.nombre,
-    precio: producto.precio,
-    imagen: producto.imagen || '',
-    talle: talleSeleccionado,
-    cantidad: cantidad,
-  };
-
-  const carritoExistente = JSON.parse(localStorage.getItem("carrito") || "[]");
-
-  const indiceExistente = carritoExistente.findIndex(
-    (item: any) => item.id === nuevoItem.id && item.talle === nuevoItem.talle
-  );
-
-  if (indiceExistente !== -1) {
-    carritoExistente[indiceExistente].cantidad += cantidad;
-  } else {
-    carritoExistente.push(nuevoItem);
-  }
-
-  localStorage.setItem("carrito", JSON.stringify(carritoExistente));
-  toast.success("Producto agregado al carrito 🛒");
-}
-
-    return (
-      <>
+  return (
+    <>
       <div className={styles.productDetailContainer}>
         <div>
           <Header/>
@@ -105,7 +110,7 @@ export default function ProductDetail() {
               <h3>${producto.precio}</h3>
             </div>
             <div className={styles.section2}>
-            <h2>Talle:</h2>
+              <h2>Talle:</h2>
               <div className={styles.talleGrid}>
                 {talles.map((talle) => (
                   <div
@@ -153,6 +158,6 @@ export default function ProductDetail() {
         </div>
         <Footer/> 
       </div>
-      </>
-    );
-  }  
+    </>
+  );
+}

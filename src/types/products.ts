@@ -1,7 +1,7 @@
     import { Talle } from './talles'
 
     export interface Producto {
-    id: number
+    id?: number
     nombre: string;
     categoriaId: number;
     color: number;

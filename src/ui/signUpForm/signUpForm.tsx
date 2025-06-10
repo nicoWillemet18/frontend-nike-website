@@ -5,6 +5,7 @@ import CustomButton from '../customButton/customButton';
 import { registerUser } from '../../data/auth/authController';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 
 const SignUpForm = () => {
     const [email, setEmail] = useState('');
@@ -14,6 +15,19 @@ const SignUpForm = () => {
     const [usuario, setUsuario] = useState('');
     const [birthDate, setBirthDate] = useState('');
     const [gender, setGender] = useState('');
+    const navigate = useNavigate();
+
+
+    const decodeToken = (token: string) => {
+    try {
+        const payload = token.split('.')[1];
+        const decoded = JSON.parse(atob(payload));
+        return decoded;
+    } catch (error) {
+        console.error('Error al decodificar el token', error);
+        return null;
+    }
+    };
 
     const handleRegister = async () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -65,8 +79,18 @@ const SignUpForm = () => {
     }
 
     try {
-        await registerUser({ name, lastName, usuario, password, email });
+        const data = await registerUser({ name, lastName, usuario, password, email });
+        localStorage.setItem('token', data.token);
+        const decoded = decodeToken(data.token);
+        if (decoded?.sub) {
+        localStorage.setItem('usuario', decoded.sub);
+        }
+
         toast.success('Usuario registrado exitosamente');
+
+        navigate('/');
+
+
     } catch (error) {
         toast.error(`Error: ${error}`);
     }
@@ -92,8 +116,9 @@ const SignUpForm = () => {
                 placeholder="Contraseña"
                 className={styles.input}
                 value={password}
+                autoComplete="new-password"
                 onChange={(e) => setPassword(e.target.value)}
-            />
+                />
             <input
                 type="text"
                 placeholder="Nombre"

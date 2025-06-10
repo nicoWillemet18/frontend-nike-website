@@ -28,7 +28,7 @@ export const loginUser = async (credentials: { usuario: string; password: string
     return response.data;
   } catch (error: any) {
     const errorMessage =
-      error.response?.data?.message || 'Datos incorrectos';
+      error.response?.data?.message || 'Usuario o contraseña incorrectos';
     throw errorMessage;
   }
 };

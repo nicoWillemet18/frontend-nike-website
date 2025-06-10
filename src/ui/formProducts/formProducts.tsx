@@ -1,13 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './formProducts.module.css';
 import CustomButton from '../customButton/customButton';
 import imgProduct from '../../assets/imgCard.png';
-
+import { CrearProducto } from '../../data/productsController/productsController';
+import { Producto } from '../../types/products';
 
 const categorias = [
-  "Deportivas", "Urbanas", "Botines", "Basquet", "Skate", 
-  "Sandalias", "Tenis", "Air Max", "Jordan", "Edición Limitada", "Padel"
+  { id: 1, nombre: "Deportivas" },
+  { id: 2, nombre: "Urbanas" },
+  { id: 3, nombre: "Botines" },
+  { id: 5, nombre: "Basquet" },
+  { id: 6, nombre: "Skate" },
+  { id: 7, nombre: "Sandalias" },
+  { id: 8, nombre: "Tenis" },
+  { id: 9, nombre: "Air Max" },
+  { id: 10, nombre: "Jordan" },
+  { id: 11, nombre: "Edición Limitada" },
+  { id: 12, nombre: "Padel" }
 ];
 
 interface FormProductProps {
@@ -28,10 +38,52 @@ const FormProduct: React.FC<FormProductProps> = ({ isEditMode = false }) => {
     envio: 'free',
   };
 
-  const handleConfirm = () => {
-    // Lógica de guardado si se desea
-    navigate('/admin/manage-products');
+  // Estado para manejar los valores del formulario
+  const [formData, setFormData] = useState({
+    nombre: isEditMode ? defaultProductData.nombre : '',
+    descripcion: isEditMode ? defaultProductData.descripcion : '',
+    precio: isEditMode ? defaultProductData.precio : '',
+    cantidad: isEditMode ? defaultProductData.cantidad : '',
+    categoria: isEditMode ? defaultProductData.categoria : '',
+    talle: isEditMode ? defaultProductData.talle : '',
+    genero: isEditMode ? defaultProductData.genero : '',
+    envio: isEditMode ? defaultProductData.envio : 'free',
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value,
+    }));
   };
+
+  const handleConfirm = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  // Armar payload con datos del formulario
+  const payload : Producto = {
+    nombre: formData.nombre,
+    categoriaId: parseInt(formData.categoria, 10) || 2,
+    color: 3,
+    precio: parseFloat(formData.precio),
+    descripcion: formData.descripcion,
+    imagen: "https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/b2337b4a-e174-4e6c-9f5f-1f7b931ea39e/dunk-low-retro-zapatillas-Sk74kx.png", // imagen fija por ahora
+    estado: true,
+    stock: 300,
+    genero: formData.genero,
+    talles: [{id:1}],
+  };
+
+  try {
+    await CrearProducto(payload);
+    alert('Producto creado con éxito!');
+    navigate('/admin/manage-products');
+  } catch (error) {
+    alert('Error al crear producto. Intenta nuevamente.');
+    console.error('Error al crear producto:', error);
+  }
+};
 
   const handleCancel = () => {
     navigate('/admin/manage-products');
@@ -42,51 +94,78 @@ const FormProduct: React.FC<FormProductProps> = ({ isEditMode = false }) => {
       <h2 className={styles.titleForm}>
         {isEditMode ? 'Editar Producto' : 'Agregar Producto'}
       </h2>
-      <form className={styles.fpForm}>
+      <form className={styles.fpForm} onSubmit={handleConfirm}>
         {/* Sección izquierda */}
         <div className={styles.fpLeftSection}>
           <h2>Ingresar detalles</h2>
           <input
             type="text"
-            placeholder={isEditMode ? defaultProductData.nombre : 'Nombre del artículo'}
+            name="nombre"
+            value={formData.nombre}
+            onChange={handleChange}
+            placeholder="Nombre del artículo"
             className={styles.fpInput}
           />
           <textarea
-            placeholder={isEditMode ? defaultProductData.descripcion : 'Descripción'}
+            name="descripcion"
+            value={formData.descripcion}
+            onChange={handleChange}
+            placeholder="Descripción"
             className={styles.fpInput}
           />
           <input
             type="number"
-            placeholder={isEditMode ? defaultProductData.precio : 'Precio'}
+            name="precio"
+            value={formData.precio}
+            onChange={handleChange}
+            placeholder="Precio"
             className={styles.fpInput}
           />
           <input
             type="number"
-            placeholder={isEditMode ? defaultProductData.cantidad : 'Cantidad'}
+            name="cantidad"
+            value={formData.cantidad}
+            onChange={handleChange}
+            placeholder="Cantidad"
             className={styles.fpInput}
           />
-          <select className={styles.fpSelect} defaultValue={isEditMode ? defaultProductData.categoria : ''}>
+          <select
+            className={styles.fpSelect}
+            name="categoria"
+            value={formData.categoria} 
+            onChange={handleChange}
+          >
             <option value="">Seleccionar categoría</option>
-            {categorias.map((categoria) => (
-              <option key={categoria} value={categoria}>
-                {categoria}
+            {categorias.map(({ id, nombre }) => (
+              <option key={id} value={id.toString()}>
+                {nombre}
               </option>
             ))}
           </select>
 
           <div className={styles.fpFlexContainer}>
-            <select className={styles.fpSelects} defaultValue={isEditMode ? defaultProductData.talle : ''}>
+            <select
+              className={styles.fpSelects}
+              name="talle"
+              value={formData.talle}
+              onChange={handleChange}
+            >
               <option value="">Talle</option>
               {Array.from({ length: 11 }, (_, i) => {
-                const size = 36 + i ;
+                const size = 36 + i;
                 return (
-                  <option key={size} value={size}>
-                    {size % 1 === 0 ? size.toFixed(0) : size.toFixed(1)}
+                  <option key={size} value={size.toString()}>
+                    {size}
                   </option>
                 );
               })}
             </select>
-            <select className={styles.fpSelects} defaultValue={isEditMode ? defaultProductData.genero : ''}>
+            <select
+              className={styles.fpSelects}
+              name="genero"
+              value={formData.genero}
+              onChange={handleChange}
+            >
               <option value="">Género</option>
               <option value="hombre">Hombre</option>
               <option value="mujer">Mujer</option>
@@ -99,18 +178,20 @@ const FormProduct: React.FC<FormProductProps> = ({ isEditMode = false }) => {
             <label className={styles.radioLabel}>
               <input
                 type="radio"
-                name="shipping"
+                name="envio"
                 value="calculated"
-                defaultChecked={isEditMode && defaultProductData.envio === 'calculated'}
+                checked={formData.envio === 'calculated'}
+                onChange={handleChange}
               />
               Envío calculado
             </label>
             <label className={styles.radioLabel}>
               <input
                 type="radio"
-                name="shipping"
+                name="envio"
                 value="free"
-                defaultChecked={isEditMode && defaultProductData.envio === 'free'}
+                checked={formData.envio === 'free'}
+                onChange={handleChange}
               />
               Envío gratis
             </label>
@@ -120,7 +201,6 @@ const FormProduct: React.FC<FormProductProps> = ({ isEditMode = false }) => {
             <span className={styles.label}>Subir imagen</span>
             <input
               type="file"
-              placeholder="Seleccionar imagen"
               className={styles.fpInput}
             />
           </div>
@@ -129,7 +209,7 @@ const FormProduct: React.FC<FormProductProps> = ({ isEditMode = false }) => {
             <span className={styles.label}>Confirmación de Administrador</span>
             <input
               type="text"
-              placeholder='Usuario'
+              placeholder="Usuario"
               className={styles.fpInput}
             />
             <input
@@ -146,31 +226,33 @@ const FormProduct: React.FC<FormProductProps> = ({ isEditMode = false }) => {
           <div className={styles.fpSummary}>
             <div className={styles.fpSummaryItem}>
               <span className={styles.fpBold}>Artículo:</span>
-              <span>{defaultProductData.nombre}</span>
+              <span>{formData.nombre || ''}</span>
             </div>
             <div className={styles.fpSummaryItem}>
               <span className={styles.fpLightText}>Precio:</span>
-              <span className={styles.fpLightText}>${defaultProductData.precio}</span>
+              <span className={styles.fpLightText}>${formData.precio || ''}</span>
             </div>
             <div className={styles.fpSummaryItem}>
               <span className={styles.fpLightText}>Cantidad:</span>
-              <span className={styles.fpLightText}>{defaultProductData.cantidad}</span>
+              <span className={styles.fpLightText}>{formData.cantidad || ''}</span>
             </div>
             <div className={styles.fpSummaryItem}>
               <span className={styles.fpLightText}>Categoría:</span>
-              <span className={styles.fpLightText}>Urbanas</span>
+              <span className={styles.fpLightText}>
+                {categorias.find(c => c.id.toString() === formData.categoria)?.nombre || ''}
+              </span>
             </div>
             <div className={styles.fpSummaryItem}>
               <span className={styles.fpLightText}>Envío:</span>
-              <span className={styles.fpLightText}>Gratis</span>
+              <span className={styles.fpLightText}>{formData.envio === 'free' ? 'Gratis' : 'Calculado'}</span>
             </div>
             <div className={styles.fpSummaryItem}>
               <span className={styles.fpLightText}>Género:</span>
-              <span className={styles.fpLightText}>Hombre</span>
+              <span className={styles.fpLightText}>{formData.genero || ''}</span>
             </div>
             <div className={styles.fpSummaryItem}>
-              <span className={styles.fpLightText}>Talle/s:</span>
-              <span className={styles.fpLightText}>38</span>
+              <span className={styles.fpLightText}>Talle:</span>
+              <span className={styles.fpLightText}>{formData.talle || ''}</span>
             </div>
 
             <div className={styles.fpSummaryImg}>
@@ -184,7 +266,7 @@ const FormProduct: React.FC<FormProductProps> = ({ isEditMode = false }) => {
           </div>
 
           <div className={styles.fpButtons}>
-            <CustomButton text="Confirmar" onClick={handleConfirm} />
+            <CustomButton text="Confirmar" type="submit" />
             <CustomButton text="Cancelar" onClick={handleCancel} />
           </div>
         </div>

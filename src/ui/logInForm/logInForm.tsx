@@ -14,27 +14,41 @@ const Login = () => {
     const navigate = useNavigate();
 
     const handleLogin = async () => {
-        if (!usuario || !password) {
-            toast.error('Completá usuario y contraseña');
-            return;
-        }
+    if (!usuario || !password) {
+        toast.error('Completá usuario y contraseña');
+        return;
+    }
 
-        try {
-            const data = await loginUser({ usuario, password });
-            toast.success('Sesión iniciada correctamente');
+    try {
+        const data = await loginUser({ usuario, password });
 
-            localStorage.setItem('token', data.token);
-            localStorage.setItem('usuario', data.usuarname);
+        const token = data.token;
+        localStorage.setItem('token', token);
 
-            if (isAdmin) {
-                navigate('/admin');
-            } else {
-                navigate('/');
+        const decodeToken = (token: string) => {
+            try {
+                const payload = token.split('.')[1];
+                const decoded = JSON.parse(atob(payload));
+                return decoded;
+            } catch (err) {
+                console.error('Error al decodificar token:', err);
+                return null;
             }
-        } catch (error) {
-            toast.error(`Error: ${error}`);
+        };
+
+        const decoded = decodeToken(token);
+        const nombreUsuario = decoded?.sub;
+        localStorage.setItem('usuario', nombreUsuario);
+
+        if (isAdmin) {
+            navigate('/admin');
+        } else {
+            navigate('/');
         }
-    };
+    } catch (error) {
+        toast.error(`Error: ${error}`);
+    }
+};
 
     return (
         <div className={styles.loginContainer}>

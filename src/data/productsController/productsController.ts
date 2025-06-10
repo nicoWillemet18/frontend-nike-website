@@ -2,7 +2,7 @@ import axios from 'axios';
 import { Producto } from '../../types/products';
 
 const API_URL = import.meta.env.VITE_API_BASE_URL;
-const TOKEN = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJOaWMiLCJpYXQiOjE3NDk0MjE2MDEsImV4cCI6MTc0OTUwODAwMX0.ffco-RWeWbA8uI56sF3n6B2soF9iKy5agD7X5x7kVgY';
+const TOKEN = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJuaWNvMjAzMCIsImlhdCI6MTc0OTUwODQwMiwiZXhwIjoxNzQ5NTk0ODAyfQ.U6GKDMqR75BjR5sZXmZ7t_NaBfOBPueDEoKO_SZWzEM';
 
 // Listar todos los productos
 export const ListarProductos = async () => {
