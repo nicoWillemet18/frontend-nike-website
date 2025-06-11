@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ProductCard from '../productCard/productCard'; 
-import styles from './ProductSlice.module.css';
+import styles from './productSlice.module.css';
 import { useNavigate } from 'react-router-dom';
 import { ListarProductos } from '../../data/productsController/productsController';
 
