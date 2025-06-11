@@ -6,7 +6,6 @@ import noImage from '../../assets/noImage.jpg';
 import { CrearProducto } from '../../data/productsController/productsController';
 import { Producto } from '../../types/products';
 import Swal from "sweetalert2";
-import { IImage } from '../../types/IImage';
 import { uploadImages } from '../../data/productsController/imageController';
 
 const categorias = [
