@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Producto } from '../../types/products';
+import { Producto } from '../../types/IProducts';
 
 const API_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -45,6 +45,28 @@ export const ListarProductoByID = async (id: number) => {
     return response.data;
   } catch (error) {
     console.error('Error fetching product by ID:', error);
+    throw error;
+  }
+};
+
+// Editar Producto
+export const EditarProducto = async (id: number, productoData: any) => {
+  try {
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      throw new Error('No se encontró el token de autenticación.');
+    }
+
+    const response = await axios.put(`${API_URL}api/productos/${id}`, productoData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('Error al editar el producto:', error);
     throw error;
   }
 };

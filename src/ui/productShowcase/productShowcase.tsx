@@ -3,16 +3,10 @@ import ProductCard from '../productCard/productCard';
 import styles from './ProductShowcase.module.css';
 import { useNavigate } from 'react-router-dom';
 import { ListarProductos } from '../../data/productsController/productsController';
+import { Producto } from '../../types/IProducts';
 
 interface ProductShowcaseProps {
   isAdmin?: boolean; 
-}
-
-interface Producto {
-  id: number;
-  nombre: string;
-  precio: number;
-  genero: string;
 }
 
 const ProductShowcase: React.FC<ProductShowcaseProps> = ({ isAdmin = false }) => {
@@ -32,7 +26,9 @@ const ProductShowcase: React.FC<ProductShowcaseProps> = ({ isAdmin = false }) =>
     loadProducts();
   }, []);
 
-  const handleClick = (id: number) => {
+  const handleClick = (id?: number) => {
+    if (id === undefined) return;
+
     if (isAdmin) {
       navigate(`/admin/edit-product/${id}`);
     } else {
@@ -43,13 +39,16 @@ const ProductShowcase: React.FC<ProductShowcaseProps> = ({ isAdmin = false }) =>
   return (
     <div className={styles.showcase}>
       {products.map((product) => (
-        <div key={product.id} onClick={() => handleClick(product.id)}>
-          <ProductCard
-            productName={product.nombre}
-            productPrice={`${product.precio}`}
-            productGender={`Zapatillas para ${product.genero}`}
-          />
-        </div>
+        product.id !== undefined && (
+          <div key={product.id} onClick={() => handleClick(product.id)}>
+            <ProductCard
+              productImage={product.imagen}
+              productName={product.nombre}
+              productPrice={`${product.precio}`}
+              productDescripcion={`${product.descripcion}`}
+            />
+          </div>
+        )
       ))}
     </div>
   );

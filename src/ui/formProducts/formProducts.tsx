@@ -1,26 +1,39 @@
-import React, { useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import styles from './formProducts.module.css';
 import CustomButton from '../customButton/customButton';
 import noImage from '../../assets/noImage.jpg';
-import { CrearProducto } from '../../data/productsController/productsController';
-import { Producto } from '../../types/products';
+import { CrearProducto, EditarProducto, ListarProductoByID } from '../../data/productsController/productsController';
+import { Producto } from '../../types/IProducts';
 import Swal from "sweetalert2";
-import { IImage } from '../../types/IImage';
 import { uploadImages } from '../../data/productsController/imageController';
 
 const categorias = [
   { id: 1, nombre: "Deportivas" },
   { id: 2, nombre: "Urbanas" },
   { id: 3, nombre: "Botines" },
-  { id: 5, nombre: "Basquet" },
-  { id: 6, nombre: "Skate" },
-  { id: 7, nombre: "Sandalias" },
-  { id: 8, nombre: "Tenis" },
-  { id: 9, nombre: "Air Max" },
-  { id: 10, nombre: "Jordan" },
-  { id: 11, nombre: "Edición Limitada" },
-  { id: 12, nombre: "Padel" }
+  { id: 4, nombre: "Básquet" },
+  { id: 5, nombre: "Skate" },
+  { id: 6, nombre: "Sandalias" },
+  { id: 7, nombre: "Ténis" },
+  { id: 8, nombre: "Air Max" },
+  { id: 9, nombre: "Jordan" },
+  { id: 10, nombre: "Edición Limitada" },
+  { id: 11, nombre: "Pádel" }
+];
+
+const tallesDisponibles = [
+  { id: 1, numero: "36" },
+  { id: 2, numero: "37" },
+  { id: 3, numero: "38" },
+  { id: 4, numero: "39" },
+  { id: 5, numero: "40" },
+  { id: 6, numero: "41" },
+  { id: 7, numero: "42" },
+  { id: 8, numero: "43" },
+  { id: 9, numero: "44" },
+  { id: 10, numero: "45" },
+  { id: 11, numero: "46" },
 ];
 
 interface FormProductProps {
@@ -29,32 +42,49 @@ interface FormProductProps {
 
 const FormProduct: React.FC<FormProductProps> = ({ isEditMode = false }) => {
   const navigate = useNavigate();
+  const { id } = useParams();
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [images, setImages] = useState([noImage]);
   const [selectedFiles, setSelectedFiles] = useState<FileList | null>(null);
+  
 
-  const defaultProductData = {
-    nombre: 'Nike Court Vision Low',
-    descripcion: 'Zapatillas urbanas para hombre',
-    precio: '310000',
-    cantidad: '425',
-    categoria: 'Urbanas',
-    talle: '38',
-    genero: 'hombre',
-    envio: 'free',
-    imagen: '',
-  };
+  useEffect(() => {
+    const fetchProducto = async () => {
+      if (isEditMode && id !== undefined) {
+        try {
+          const productoData = await ListarProductoByID(Number(id));
+          setFormData({
+            nombre: productoData.nombre || '',
+            descripcion: productoData.descripcion || '',
+            precio: String(productoData.precio || ''),
+            cantidad: String(productoData.stock || ''),
+            categoria: String(productoData.categoriaId || ''),
+            talle: productoData.talles?.map((t: any) => String(t.numero)) || [],
+            genero: productoData.genero || '',
+            envio: productoData.envio || 'free',
+            imagen: productoData.imagen || '',
+          });
+          setImages(productoData.imagen ? [productoData.imagen] : [noImage]);
+
+        } catch (error) {
+          Swal.fire("Error", "No se pudo cargar el producto", "error");
+        }
+      }
+    };
+
+    fetchProducto();
+  }, [id, isEditMode]);
 
   const [formData, setFormData] = useState({
-    nombre: isEditMode ? defaultProductData.nombre : '',
-    descripcion: isEditMode ? defaultProductData.descripcion : '',
-    precio: isEditMode ? defaultProductData.precio : '',
-    cantidad: isEditMode ? defaultProductData.cantidad : '',
-    categoria: isEditMode ? defaultProductData.categoria : '',
-    talle: isEditMode ? defaultProductData.talle : '',
-    genero: isEditMode ? defaultProductData.genero : '',
-    envio: isEditMode ? defaultProductData.envio : 'free',
-    imagen: isEditMode ? defaultProductData.imagen : '',
+    nombre: '',
+    descripcion: '',
+    precio: '',
+    cantidad: '',
+    categoria: '',
+    talle: [] as string[],
+    genero: '',
+    envio: 'free',
+    imagen: '',
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -71,24 +101,52 @@ const FormProduct: React.FC<FormProductProps> = ({ isEditMode = false }) => {
     const payload: Producto = {
       nombre: formData.nombre,
       categoriaId: parseInt(formData.categoria, 10) || 2,
-      color: 3,
       precio: parseFloat(formData.precio),
       descripcion: formData.descripcion,
       imagen: images[0],
       estado: true,
-      stock: 300,
+      stock: parseInt(formData.cantidad) || 0,
       genero: formData.genero,
-      talles: [{ id: 1, numero: formData.talle }],
+      talles: formData.talle
+        .map(talleNumero => tallesDisponibles.find(t => t.numero === talleNumero))
+        .filter(Boolean) as { id: number; numero: string }[],
     };
 
     try {
-      await CrearProducto(payload);
-      Swal.fire("Éxito", "Producto creado con éxito!", "success");
+      if (isEditMode && id) {
+        console.log('Editando producto con id:', id);
+        console.log('Payload a enviar:', payload);
+        await EditarProducto(Number(id), payload);
+        Swal.fire("Éxito", "Producto editado con éxito!", "success");
+      } else {
+        await CrearProducto(payload);
+        Swal.fire("Éxito", "Producto creado con éxito!", "success");
+      }
+
       navigate('/admin/manage-products');
     } catch (error) {
-      Swal.fire("Error", "Error al crear producto. Intenta nuevamente.", "error");
-      console.error('Error al crear producto:', error);
+      Swal.fire("Error", isEditMode ? "Error al editar producto" : "Error al crear producto", "error");
+      console.error('Error en el formulario:', error);
     }
+  };
+
+  const handleTalleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const nuevoTalle = e.target.value;
+    if (nuevoTalle === "") return;
+
+    setFormData(prev => {
+      if (prev.talle.includes(nuevoTalle)) {
+        return {
+          ...prev,
+          talle: prev.talle.filter(t => t !== nuevoTalle),
+        };
+      } else {
+        return {
+          ...prev,
+          talle: [...prev.talle, nuevoTalle],
+        };
+      }
+    });
   };
 
   const handleCancel = () => {
@@ -151,12 +209,16 @@ const FormProduct: React.FC<FormProductProps> = ({ isEditMode = false }) => {
           </select>
 
           <div className={styles.fpFlexContainer}>
-            <select className={styles.fpSelects} name="talle" value={formData.talle} onChange={handleChange}>
+            <select
+              className={styles.fpSelects}
+              name="talle"
+              value=""
+              onChange={handleTalleChange}
+            >
               <option value="">Talle</option>
-              {Array.from({ length: 11 }, (_, i) => {
-                const size = 36 + i;
-                return <option key={size} value={size.toString()}>{size}</option>;
-              })}
+              {tallesDisponibles.map(({ id, numero }) => (
+                <option key={id} value={numero}>{numero}</option>
+              ))}
             </select>
             <select className={styles.fpSelects} name="genero" value={formData.genero} onChange={handleChange}>
               <option value="">Género</option>
@@ -167,28 +229,11 @@ const FormProduct: React.FC<FormProductProps> = ({ isEditMode = false }) => {
           </div>
 
           <div className={styles.shippingOptions}>
-            <span className={styles.label}>Tipo de envío:</span>
-            <label className={styles.radioLabel}>
-              <input type="radio" name="envio" value="calculated" checked={formData.envio === 'calculated'} onChange={handleChange} />
-              Envío calculado
-            </label>
-            <label className={styles.radioLabel}>
-              <input type="radio" name="envio" value="free" checked={formData.envio === 'free'} onChange={handleChange} />
-              Envío gratis
-            </label>
-          </div>
-
-          <div className={styles.shippingOptions}>
             <span className={styles.label}>Subir imagen</span>
             <input type="file" className={styles.fpInput} ref={inputRef} onChange={handleFileChange} multiple />
             <CustomButton text="Subir" onClick={uploadFiles} />
           </div>
 
-          <div className={styles.shippingOptions}>
-            <span className={styles.label}>Confirmación de Administrador</span>
-            <input type="text" placeholder="Usuario" className={styles.fpInput} />
-            <input type="password" placeholder="Contraseña" className={styles.fpInput} />
-          </div>
         </div>
 
         <div className={styles.fpRightSection}>
@@ -200,7 +245,10 @@ const FormProduct: React.FC<FormProductProps> = ({ isEditMode = false }) => {
             <div className={styles.fpSummaryItem}><span className={styles.fpLightText}>Categoría:</span><span>{categorias.find(c => c.id.toString() === formData.categoria)?.nombre}</span></div>
             <div className={styles.fpSummaryItem}><span className={styles.fpLightText}>Envío:</span><span>{formData.envio === 'free' ? 'Gratis' : 'Calculado'}</span></div>
             <div className={styles.fpSummaryItem}><span className={styles.fpLightText}>Género:</span><span>{formData.genero}</span></div>
-            <div className={styles.fpSummaryItem}><span className={styles.fpLightText}>Talle:</span><span>{formData.talle}</span></div>
+            <div className={styles.fpSummaryItem}>
+              <span className={styles.fpLightText}>Talle:</span>
+              <span>{formData.talle.join(', ')}</span>
+            </div>            
             <div className={styles.fpSummaryImg}><span className={styles.fpBold}>{formData.nombre}</span><img src={images[0]} alt="Producto" className={styles.fpImagePreview} /></div>
             <div className={styles.fpSummaryImg}><span className={styles.fpLightText}>{formData.descripcion}</span></div>
           </div>

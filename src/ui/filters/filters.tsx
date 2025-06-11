@@ -2,8 +2,17 @@ import { useState } from "react";
 import styles from "./Filter.module.css";
 
 const categorias = [
-  "Deportivas", "Urbanas", "Botines", "Basquet", "Skate", 
-  "Sandalias", "Tenis", "Air Max", "Jordan", "Edición Limitada", "Padel"
+  { id: 1, nombre: "Deportivas" },
+  { id: 2, nombre: "Urbanas" },
+  { id: 3, nombre: "Botines" },
+  { id: 4, nombre: "Básquet" },
+  { id: 5, nombre: "Skate" },
+  { id: 6, nombre: "Sandalias" },
+  { id: 7, nombre: "Ténis" },
+  { id: 8, nombre: "Air Max" },
+  { id: 9, nombre: "Jordan" },
+  { id: 10, nombre: "Edición Limitada" },
+  { id: 11, nombre: "Pádel" },
 ];
 
 const generos = ["Hombre", "Mujer", "Niño/a"];
@@ -26,28 +35,26 @@ export default function Filter({ filtros, setFiltros }: FilterProps) {
 
   return (
     <aside className={styles.filterContainer}>
-      {/* Categorías */}
       <section className={styles.section}>
         <h3 className={styles.title}>Categorías</h3>
         <ul className={styles.list}>
-          {categorias.map((categoria, index) => (
+          {categorias.map((categoria) => (
             <li
-              key={categoria}
-              className={`${styles.listItem} ${filtros.categoriaId === index ? styles.active : ''}`}
+              key={categoria.id}
+              className={`${styles.listItem} ${filtros.categoriaId === categoria.id ? styles.active : ''}`}
               onClick={() =>
                 setFiltros((prev: any) => ({
                   ...prev,
-                  categoriaId: prev.categoriaId === index ? null : index,
+                  categoriaId: prev.categoriaId === categoria.id ? null : categoria.id,
                 }))
               }
             >
-              {categoria}
+              {categoria.nombre}
             </li>
           ))}
         </ul>
       </section>
 
-      {/* Género */}
       <section className={styles.section}>
         <button 
           className={styles.toggleButton} 
@@ -79,7 +86,6 @@ export default function Filter({ filtros, setFiltros }: FilterProps) {
         </ul>
       </section>
 
-      {/* Ordenar por */}
       <section className={styles.section}>
         <button 
           className={styles.toggleButton} 
@@ -111,7 +117,6 @@ export default function Filter({ filtros, setFiltros }: FilterProps) {
         </ul>
       </section>
 
-      {/* Talle */}
       <section className={styles.section}>
         <button 
           className={styles.toggleButton} 

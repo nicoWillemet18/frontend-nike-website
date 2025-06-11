@@ -23,13 +23,11 @@ const Login = () => {
   try {
     const data = await loginUser({ usuario, password });
 
-    // Si el usuario es ADMIN y NO está marcado el checkbox isAdmin, mostrar error
     if (data.usuario.rol === 'ADMIN' && !isAdmin) {
       toast.error('Usuario no encontrado');
-      return; // No continuar con el login
+      return;
     }
 
-    // Guardamos token y datos del usuario directamente
     localStorage.setItem('token', data.token);
     localStorage.setItem('usuario', `${data.usuario.name} ${data.usuario.lastName}`);
     localStorage.setItem('rol', data.usuario.rol);

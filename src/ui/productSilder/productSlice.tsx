@@ -1,18 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import ProductCard from '../productCard/productCard'; 
+import ProductCard from '../productCard/productCard';
 import styles from './ProductSlice.module.css';
 import { useNavigate } from 'react-router-dom';
 import { ListarProductos } from '../../data/productsController/productsController';
+import { Producto } from '../../types/IProducts';
 
 interface ProductSliceProps {
-  isAdmin?: boolean; 
-}
-
-interface Producto {
-  id: number;
-  nombre: string;
-  precio: number;
-  genero: string;
+  isAdmin?: boolean;
 }
 
 const ProductSlice: React.FC<ProductSliceProps> = ({ isAdmin = false }) => {
@@ -67,23 +61,30 @@ const ProductSlice: React.FC<ProductSliceProps> = ({ isAdmin = false }) => {
   return (
     <div className={styles.sliceContainer}>
       {total > visibleCount && (
-        <button className={`${styles.arrowButton} ${styles.left}`} onClick={handlePrev}>&lt;</button>
+        <button className={`${styles.arrowButton} ${styles.left}`} onClick={handlePrev}>
+          &lt;
+        </button>
       )}
 
       <div className={styles.slice}>
-        {getVisibleProducts().map((product) => (
-          <div key={product.id} onClick={() => handleClick(product.id)}>
-            <ProductCard 
-              productName={product.nombre} 
-              productPrice={`${product.precio}`} 
-              productGender={`Zapatillas para ${product.genero}`} 
-            />
-          </div>
-        ))}
+        {getVisibleProducts()
+          .filter((product): product is Producto & { id: number } => product.id !== undefined)
+          .map((product) => (
+            <div key={product.id} onClick={() => handleClick(product.id)}>
+              <ProductCard
+                productImage={product.imagen}
+                productName={product.nombre}
+                productPrice={`${product.precio}`}
+                productDescripcion={`${product.descripcion}`}
+              />
+            </div>
+          ))}
       </div>
 
       {total > visibleCount && (
-        <button className={`${styles.arrowButton} ${styles.right}`} onClick={handleNext}>&gt;</button>
+        <button className={`${styles.arrowButton} ${styles.right}`} onClick={handleNext}>
+          &gt;
+        </button>
       )}
     </div>
   );

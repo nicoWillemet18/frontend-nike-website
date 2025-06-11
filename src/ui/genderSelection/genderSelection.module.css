@@ -35,3 +35,8 @@
   .whiteButton:hover{
     background-color: #d4d4d4;
   }
+
+  .noPointer {
+  cursor: default !important;
+  pointer-events: none;
+}

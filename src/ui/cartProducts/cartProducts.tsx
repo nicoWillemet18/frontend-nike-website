@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './cartProducts.module.css';
 import imgCard from '../../assets/imgCard.png';
-import { Producto } from '../../types/products';
+import { Producto } from '../../types/IProducts';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import DeleteProduct from '../toastAlerts/DeleteProduct';
