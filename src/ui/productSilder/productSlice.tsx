@@ -16,17 +16,18 @@ const ProductSlice: React.FC<ProductSliceProps> = ({ isAdmin = false }) => {
   const visibleCount = 4;
 
   useEffect(() => {
-    const loadProducts = async () => {
-      try {
-        const data = await ListarProductos();
-        setProducts(data.slice(0, 8));
-      } catch (error) {
-        console.error('Error al cargar productos:', error);
-      }
-    };
+  const loadProducts = async () => {
+    try {
+      const data = await ListarProductos();
+      const productosConStock = data.filter((p: Producto) => p.stock > 0);
+      setProducts(productosConStock.slice(0, 8));
+    } catch (error) {
+      console.error('Error al cargar productos:', error);
+    }
+  };
 
-    loadProducts();
-  }, []);
+  loadProducts();
+}, []);
 
   const total = products.length;
 

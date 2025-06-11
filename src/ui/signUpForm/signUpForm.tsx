@@ -69,16 +69,16 @@ const SignUpForm = () => {
     try {
       const data = await registerUser({ name, lastName, usuario, password, email, rol: 'CLIENT' });
 
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('usuario', data.usuario || data.username || '');
-      localStorage.setItem('rol', data.rol || '');
+      localStorage.setItem('token', data.token || '');
+      localStorage.setItem('usuario', `${name} ${lastName}`);
+      localStorage.setItem('rol', 'CLIENT');
 
       toast.success('Usuario registrado exitosamente');
       navigate('/');
     } catch (error) {
       toast.error(`Error: ${error}`);
     }
-  };
+      };
 
   return (
     <div className={styles.signUpContainer}>

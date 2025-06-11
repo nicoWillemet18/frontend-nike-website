@@ -14,17 +14,18 @@ const ProductShowcase: React.FC<ProductShowcaseProps> = ({ isAdmin = false }) =>
   const [products, setProducts] = useState<Producto[]>([]);
 
   useEffect(() => {
-    const loadProducts = async () => {
-      try {
-        const data = await ListarProductos(); 
-        setProducts(data.slice(0, 4));
-      } catch (error) {
-        console.error('Error al cargar los productos:', error);
-      }
-    };
+  const loadProducts = async () => {
+    try {
+      const data = await ListarProductos(); 
+      const productosConStock = data.filter((p: Producto) => p.stock > 0);
+      setProducts(productosConStock.slice(0, 4));
+    } catch (error) {
+      console.error('Error al cargar los productos:', error);
+    }
+  };
 
-    loadProducts();
-  }, []);
+  loadProducts();
+}, []);
 
   const handleClick = (id?: number) => {
     if (id === undefined) return;

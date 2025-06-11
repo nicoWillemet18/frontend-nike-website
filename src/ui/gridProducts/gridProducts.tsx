@@ -23,17 +23,18 @@ const GridProducts: React.FC<GridProductsProps> = ({ setTotal, filtros, searchTe
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchProductos = async () => {
-      try {
-        const data = await ListarProductos();
-        setProducts(data);
-      } catch (err) {
-        console.error("No se pudieron cargar los productos.");
-      }
-    };
+  const fetchProductos = async () => {
+    try {
+      const data = await ListarProductos();
+      const productosConStock = data.filter((p: Producto) => p.stock > 0);
+      setProducts(productosConStock);
+    } catch (err) {
+      console.error("No se pudieron cargar los productos.");
+    }
+  };
 
-    fetchProductos();
-  }, []);
+  fetchProductos();
+}, []);
 
   const productosFiltrados = products.filter(product => {
     if (filtros.genero && filtros.genero !== "" && product.genero !== filtros.genero) {
