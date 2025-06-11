@@ -33,6 +33,7 @@ const Login = () => {
     localStorage.setItem('token', data.token);
     localStorage.setItem('usuario', `${data.usuario.name} ${data.usuario.lastName}`);
     localStorage.setItem('rol', data.usuario.rol);
+    localStorage.setItem('userId', data.usuario.id);
 
     if (isAdmin) {
       if (data.usuario.rol === 'ADMIN') {

@@ -10,8 +10,8 @@ import { useNavigate } from "react-router-dom";
 export default function AdminPanel() {
   const navigate = useNavigate();
 
-    return (
-      <>
+  return (
+    <>
       <div className={styles.AdminContainer}>
         <div className={styles.stickyHeader}>
           <AdminHeader />
@@ -21,22 +21,24 @@ export default function AdminPanel() {
           <div className={styles.title}>
             <h2>Total de productos</h2>
             <CustomButton text="Ir a Editar" onClick={() => navigate('/admin/manage-products')} />
+              <CustomButton text="Ordenes de compra" onClick={() => navigate('/admin/purchase-order')} />
           </div>
           <ProductSlice isAdmin />
         </section>
 
+
         <section className={styles.section}>
           <h2 className={styles.title}>Editar por género</h2>
-          <GenderSelection isAdmin/>
+          <GenderSelection isAdmin />
         </section>
 
         <section className={styles.section}>
           <h2 className={styles.title}>Más vendidos</h2>
-          <ProductShowcase isAdmin/>
+          <ProductShowcase isAdmin />
         </section>
 
         <Footer />
       </div>
-      </>
-    );
+    </>
+  );
 }
