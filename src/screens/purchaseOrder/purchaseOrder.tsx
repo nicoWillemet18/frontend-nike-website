@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import AdminHeader from "../../ui/adminHeader/adminHeader";
 import Footer from "../../ui/footer/footer";
 import styles from "./purchaseOrder.module.css";
