@@ -13,6 +13,7 @@ interface Producto {
   nombre: string;
   precio: number;
   genero: string;
+  imagen: string;
 }
 
 const ProductShowcase: React.FC<ProductShowcaseProps> = ({ isAdmin = false }) => {
@@ -45,9 +46,11 @@ const ProductShowcase: React.FC<ProductShowcaseProps> = ({ isAdmin = false }) =>
       {products.map((product) => (
         <div key={product.id} onClick={() => handleClick(product.id)}>
           <ProductCard
+            productImage={product.imagen}
             productName={product.nombre}
             productPrice={`${product.precio}`}
             productGender={`Zapatillas para ${product.genero}`}
+            
           />
         </div>
       ))}

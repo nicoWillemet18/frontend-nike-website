@@ -25,7 +25,6 @@ type Orden = {
 };
 
 export default function PurchaseOrders() {
-  const navigate = useNavigate();
   const [orders, setOrders] = useState<Orden[]>([]);
   const [expandedOrderId, setExpandedOrderId] = useState<number | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
