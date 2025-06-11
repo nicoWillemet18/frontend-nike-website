@@ -9,7 +9,6 @@ const Footer = () => {
           <div className={styles.linkColumnsWrapper}>
             <div className={styles.linkColumn}>
               <p className={styles.columnTitle}>Ayuda</p>
-              <a href="/" className={styles.link}>Opciones de pago</a>
               <a
                 href="https://wa.me/5491127996935?text=Hola%20Nike%2C%20quiero%20hacer%20una%20consulta"
                 target="_blank"
