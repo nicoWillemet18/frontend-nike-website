@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styles from './TableProducts.module.css';
+import styles from './tableProducts.module.css';
 import { FaTrash } from 'react-icons/fa';
 import CustomButton from '../customButton/customButton';
 
