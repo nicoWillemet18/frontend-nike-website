@@ -1,0 +1,56 @@
+/* components/PaymentSuccess.module.css */
+
+.containerPageSuccess {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to bottom, #111, #fff);
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.containerCardSuccess {
+  padding: 3rem;
+  text-align: center;
+  background-color: #fff;
+  border-radius: 12px;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  border: 2px solid #111;
+}
+
+.containerCardSuccess h1 {
+  color: #111;
+  font-size: 2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.containerCardSuccess p {
+  margin-top: 0.5rem;
+  font-size: 1.1rem;
+  color: #555;
+  line-height: 1.5;
+}
+
+.btnSuccessLink {
+  display: inline-block;
+  margin-top: 2rem;
+  padding: 1rem 2rem;
+  background-color: #111;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 0;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btnSuccessLink:hover {
+  background-color: #000;
+  transform: translateY(-2px);
+}

@@ -1,4 +1,4 @@
-import styles from './NavBar.module.css';
+import styles from './navBar.module.css';
 import { FiShoppingBag } from 'react-icons/fi';
 import nikeLogo from '../../assets/NikeLogoSVG.svg';
 import { useNavigate } from 'react-router-dom';

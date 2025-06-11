@@ -1,5 +1,5 @@
 import { useState } from "react";
-import styles from "./Filter.module.css";
+import styles from "./filter.module.css";
 
 const categorias = [
   { id: 1, nombre: "Deportivas" },

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import ProductCard from '../productCard/productCard';
-import styles from './ProductSlice.module.css';
+import ProductCard from '../productCard/productCard'; 
+import styles from './productSlice.module.css';
 import { useNavigate } from 'react-router-dom';
 import { ListarProductos } from '../../data/productsController/productsController';
 import { Producto } from '../../types/IProducts';
@@ -8,6 +8,7 @@ import { Producto } from '../../types/IProducts';
 interface ProductSliceProps {
   isAdmin?: boolean;
 }
+
 
 const ProductSlice: React.FC<ProductSliceProps> = ({ isAdmin = false }) => {
   const navigate = useNavigate();

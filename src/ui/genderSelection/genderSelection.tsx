@@ -1,8 +1,8 @@
 import React from 'react';
-import styles from './GenderSelection.module.css';
-import hombre from '../../assets/hombre.jpg';
-import mujer from '../../assets/mujer.jpg';
-import niños from '../../assets/niños.jpg';
+import styles from './genderSelection.module.css';
+import hombre from '../../assets/hombre.jpg'
+import mujer from '../../assets/mujer.jpg'
+import niños from '../../assets/niños.jpg'
 import CustomButton from '../customButton/customButton';
 import { useNavigate } from 'react-router-dom';
 

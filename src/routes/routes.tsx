@@ -12,6 +12,9 @@ import ManageProducts from '../screens/manageProducts/manageProducts';
 import ScrollToTop from "./scrollToTop";
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
+import PaymentFailure from '../screens/PaymentFailure/PaymentFailure';
+import { PaymentSuccess } from '../screens/PaymentSuccess/PaymentSuccess';
+import PurchaseOrders from '../screens/purchaseOrder/purchaseOrder';
 
 const AppRoutes = () => {
   return (
@@ -32,6 +35,22 @@ const AppRoutes = () => {
           element={
             <PublicRoute>
               <Catalog />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/paymentFailure"
+          element={
+            <PublicRoute>
+              <PaymentFailure />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/paymentSuccess"
+          element={
+            <PublicRoute>
+              <PaymentSuccess />
             </PublicRoute>
           }
         />
@@ -98,6 +117,15 @@ const AppRoutes = () => {
           element={
             <PrivateRoute allowedRoles={["ADMIN"]}>
               <ManageProducts />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/admin/purchase-order"
+          element={
+            <PrivateRoute allowedRoles={["ADMIN"]}>
+              <PurchaseOrders />
             </PrivateRoute>
           }
         />
