@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { RegisterUserData } from '../../types/registerUserData';
+import { RegisterUserData } from '../../types/IRegisterUserData';
 
 const API_URL = `${import.meta.env.VITE_API_BASE_URL}auth/register`;
 

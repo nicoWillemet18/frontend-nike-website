@@ -21,7 +21,7 @@ const AppRoutes = () => {
     <>
       <ScrollToTop />
       <Routes>
-        {/* Rutas públicas */}
+
         <Route
           path="/"
           element={
@@ -79,7 +79,6 @@ const AppRoutes = () => {
           }
         />
 
-        {/* Rutas para CLIENT */}
         <Route
           path="/cart"
           element={
@@ -89,7 +88,6 @@ const AppRoutes = () => {
           }
         />
 
-        {/* Rutas para ADMIN */}
         <Route
           path="/admin"
           element={

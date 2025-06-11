@@ -1,5 +1,3 @@
-// src/components/DeleteProduct.tsx
-
 import React from 'react';
 
 interface DeleteProductProps {

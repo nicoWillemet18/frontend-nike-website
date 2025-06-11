@@ -75,12 +75,12 @@
   .cantidadContainer {
     display: flex;
     align-items: center;
+    gap: 20px;
   }
   
   .cantidadLabel {
     font-size: 1.4rem;
     font-weight: 500;
-    margin-bottom: 0.5rem;
   }
   
   .cantidadControls {
@@ -89,20 +89,6 @@
     align-items: center;
     padding: 0.5rem 1rem;
     border-radius: 8px;
-  }
-  
-  .cantidadIconButton {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 1.4rem;
-    color: #333;
-    padding: 0.3rem;
-    transition: color 0.2s ease;
-  }
-  
-  .cantidadIconButton:hover {
-    color: #007bff;
   }
   
   .cantidadValue {
@@ -126,4 +112,33 @@
 .section4{
   display: flex;
   justify-content: center;
+}
+
+.talleItem {
+  cursor: pointer;
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  border-radius: 5px;
+  text-align: center;
+  transition: background-color 0.2s;
+}
+
+.selected {
+  background-color: #333;
+  color: white;
+}
+
+.disabled {
+  opacity: 0.4;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+.cantidadInput {
+  width: 80px;
+  padding: 8px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  text-align: center;
 }

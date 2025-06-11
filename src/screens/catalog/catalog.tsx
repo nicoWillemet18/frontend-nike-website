@@ -23,6 +23,8 @@ export default function Catalog() {
     orden: '',
   });
 
+  const [searchTerm, setSearchTerm] = useState('');
+
   useEffect(() => {
     if (generoParam) {
       setFiltros(prev => ({ ...prev, genero: generoParam }));
@@ -36,6 +38,7 @@ export default function Catalog() {
       talle: '',
       orden: '',
     });
+    setSearchTerm('');
     navigate("/catalog");
   };
 
@@ -61,6 +64,8 @@ export default function Catalog() {
                 type="text"
                 placeholder="Buscar"
                 className={styles.searchInput}
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
 
@@ -76,7 +81,7 @@ export default function Catalog() {
           </div>
 
           <div className={`${styles.gridPanel} ${!showFilters ? styles.fullWidthGrid : ""}`}>
-            <GridProducts setTotal={setTotalProductos} filtros={filtros} />
+            <GridProducts setTotal={setTotalProductos} filtros={filtros} searchTerm={searchTerm} />
           </div>
         </div>
       </div>

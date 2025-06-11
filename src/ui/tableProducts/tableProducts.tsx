@@ -2,20 +2,16 @@ import React, { useEffect, useState } from 'react';
 import styles from './tableProducts.module.css';
 import { FaTrash } from 'react-icons/fa';
 import CustomButton from '../customButton/customButton';
+import { Producto } from '../../types/IProducts';
+import DeleteProduct from '../toastAlerts/DeleteProduct';
+import { toast } from 'react-toastify';
+import { EditarProducto } from '../../data/productsController/productsController';
 
-interface Product {
-  id: number;
-  image: string;
-  name: string;
-  gender: string;
-  price: string;
-  stock: number;
-}
 
 interface TableProductsProps {
-  products: Product[];
+  products: Producto[];
   onEdit: (id: number) => void;
-  onDelete: (id: number) => void;
+  onDelete: () => void;
 }
 
 const TableProducts: React.FC<TableProductsProps> = ({ products, onEdit, onDelete }) => {
@@ -39,6 +35,33 @@ const TableProducts: React.FC<TableProductsProps> = ({ products, onEdit, onDelet
     if (currentPage < totalPages) setCurrentPage(currentPage + 1);
   };
 
+  const handleDelete = (product: Producto) => {
+  const onConfirm = async () => {
+    toast.dismiss();
+    try {
+      await EditarProducto(product.id!, { ...product, stock: 0 });
+      toast.success('Producto eliminado', { theme: 'dark' });
+      onDelete();
+    } catch (error) {
+      toast.error('Error al eliminar producto', { theme: 'dark' });
+    }
+  };
+
+  const onCancel = () => toast.dismiss();
+
+  toast(
+    <DeleteProduct onConfirm={onConfirm} onCancel={onCancel} />,
+    {
+      position: 'top-center',
+      autoClose: false,
+      closeOnClick: false,
+      closeButton: false,
+      draggable: false,
+      pauseOnHover: true,
+    }
+  );
+};
+
   return (
     <div>
       <table className={styles.table}>
@@ -47,21 +70,24 @@ const TableProducts: React.FC<TableProductsProps> = ({ products, onEdit, onDelet
             <tr key={product.id} className={styles.tableRow}>
               <td className={`${styles.productInfo} ${product.stock === 0 ? styles.outOfStock : ''}`}>
                 <div className={styles.productDetails}>
-                  <img src={product.image} alt={product.name} className={styles.productImage} />
-                  <span>{product.name}</span>
-                  <span className={styles.lightText}>{product.gender}</span>
-                  <span>Precio: {product.price}</span>
+                  <img src={product.imagen} alt={product.nombre} className={styles.productImage} />
+                  <span>{product.nombre}</span>
+                  <span className={styles.lightText}>{product.genero}</span>
+                  <span>Precio: ${product.precio}</span>
                   <span className={styles.lightText}>Stock: {product.stock}</span>
                 </div>
               </td>
               <td className={styles.actions}>
                 <div className={styles.actionButtons}>
-                  <CustomButton text="Editar" onClick={() => onEdit(product.id)} />
-                  <CustomButton 
-                    icon={<FaTrash style={{ color: '970000' }} />} 
-                    onClick={() => onDelete(product.id)} 
+                  <CustomButton
+                    text="Editar"
+                    onClick={() => product.id !== undefined && onEdit(product.id)}
+                  />
+                  <CustomButton
+                    icon={<FaTrash style={{ color: '#970000' }} />}
+                    onClick={() => handleDelete(product)}
                     disabled={product.stock === 0}
-                  />                
+                  />
                 </div>
               </td>
             </tr>
@@ -81,7 +107,7 @@ const TableProducts: React.FC<TableProductsProps> = ({ products, onEdit, onDelet
         </button>
       </div>
     </div>
-  );  
+  );
 };
 
 export default TableProducts;

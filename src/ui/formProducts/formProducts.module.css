@@ -8,7 +8,6 @@
     padding-top: 30px;
 }
 
-/* Formulario Principal */
 .fpForm {
     display: flex;
     justify-content: space-between;
@@ -17,7 +16,6 @@
     margin: 20px;
   }
   
-  /* Sección izquierda */
   .fpLeftSection {
     width: 60%;
     display: flex;
@@ -60,7 +58,6 @@
 }
 
   
-  /* Sección derecha (Resumen) */
   .fpRightSection {
     width: 40%;
     display: flex;
@@ -100,7 +97,6 @@
     background-color: #ffffff;
   }
   
-  /* Resumen de la derecha */
   .fpSummary {
     display: flex;
     flex-direction: column;
@@ -138,7 +134,9 @@
   
   .fpButtons {
     display: flex;
+    width: 100%;
     gap: 15px;
+    justify-content: center;
     margin-top: 20px;
   }
   

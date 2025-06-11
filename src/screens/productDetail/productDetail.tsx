@@ -14,7 +14,7 @@ export default function ProductDetail() {
   const { id } = useParams<{ id: string }>();
   const [producto, setProducto] = useState<any>(null);
   const [talleSeleccionado, setTalleSeleccionado] = useState<number | null>(null);
-  const [cantidad, setCantidad] = useState(1);
+  const [cantidad, setCantidad] = useState('1');
   const navigate = useNavigate();
 
   const talles = [
@@ -34,58 +34,64 @@ export default function ProductDetail() {
     cargarProducto();
   }, [id]);
 
-  const incrementar = () => {
-    if (cantidad < 10) setCantidad(cantidad + 1);
-  };
-
-  const decrementar = () => {
-    if (cantidad > 1) setCantidad(cantidad - 1);
-  };
-
   if (!producto) {
     return <p>Cargando producto...</p>;
   }
 
   function agregarAlCarrito(
-    producto: any,
-    cantidad: number,
-    talleSeleccionado: number | null
-  ) {
-    const usuario = localStorage.getItem('usuario');
-    if (!usuario) {
-      navigate('/login');
-      return;
+      producto: any,
+      cantidadNum: number,
+      talleSeleccionado: number | null
+    ) {
+      const usuario = localStorage.getItem('usuario');
+      if (!usuario) {
+        navigate('/login');
+        return;
+      }
+
+      if (!talleSeleccionado) {
+        toast.error("Por favor selecciona un talle.");
+        return;
+      }
+
+      const nuevoItem = {
+        id: producto.id,
+        nombre: producto.nombre,
+        precio: producto.precio,
+        imagen: producto.imagen || '',
+        talle: talleSeleccionado,
+        cantidad: cantidadNum,
+      };
+
+      const carritoExistente = JSON.parse(localStorage.getItem("carrito") || "[]");
+
+      const cantidadExistente = carritoExistente
+        .filter((item: any) => item.id === producto.id)
+        .reduce((acc: number, item: any) => acc + item.cantidad, 0);
+
+      const nuevaCantidadTotal = cantidadExistente + cantidadNum;
+
+      if (nuevaCantidadTotal > producto.stock) {
+        const disponibles = producto.stock - cantidadExistente;
+        toast.error(
+          `Solo quedan ${disponibles > 0 ? disponibles : 0} unidades disponibles.`
+        );
+        return;
+      }
+
+      const indiceExistente = carritoExistente.findIndex(
+        (item: any) => item.id === nuevoItem.id && item.talle === nuevoItem.talle
+      );
+
+      if (indiceExistente !== -1) {
+        carritoExistente[indiceExistente].cantidad += cantidadNum;
+      } else {
+        carritoExistente.push(nuevoItem);
+      }
+
+      localStorage.setItem("carrito", JSON.stringify(carritoExistente));
+      toast.success("Producto agregado al carrito 🛒");
     }
-
-    if (!talleSeleccionado) {
-      toast.error("Por favor selecciona un talle.");
-      return;
-    }
-
-    const nuevoItem = {
-      id: producto.id,
-      nombre: producto.nombre,
-      precio: producto.precio,
-      imagen: producto.imagen || '',
-      talle: talleSeleccionado,
-      cantidad: cantidad,
-    };
-
-    const carritoExistente = JSON.parse(localStorage.getItem("carrito") || "[]");
-
-    const indiceExistente = carritoExistente.findIndex(
-      (item: any) => item.id === nuevoItem.id && item.talle === nuevoItem.talle
-    );
-
-    if (indiceExistente !== -1) {
-      carritoExistente[indiceExistente].cantidad += cantidad;
-    } else {
-      carritoExistente.push(nuevoItem);
-    }
-
-    localStorage.setItem("carrito", JSON.stringify(carritoExistente));
-    toast.success("Producto agregado al carrito 🛒");
-  }
 
   return (
     <>
@@ -112,42 +118,58 @@ export default function ProductDetail() {
             <div className={styles.section2}>
               <h2>Talle:</h2>
               <div className={styles.talleGrid}>
-                {talles.map((talle) => (
-                  <div
-                    key={talle}
-                    className={`${styles.talleItem} ${talleSeleccionado === talle ? styles.selected : ''}`}
-                    onClick={() => setTalleSeleccionado(talle)}
-                  >
-                    {talle}
-                  </div>
-                ))}
+                {talles.map((talle) => {
+                  const disponible = producto.talles?.some((t: any) => Number(t.numero) === talle);
+
+                  return (
+                    <div
+                      key={talle}
+                      className={`
+                        ${styles.talleItem}
+                        ${talleSeleccionado === talle ? styles.selected : ''}
+                        ${!disponible ? styles.disabled : ''}
+                      `}
+                      onClick={() => {
+                        if (disponible) setTalleSeleccionado(talle);
+                      }}
+                    >
+                      {talle}
+                    </div>
+                  );
+                })}
               </div>
+            </div>
+            <div className={styles.sectionStock}>
+                <h4>Stock disponible: {producto.stock}</h4>
             </div>
             <div className={styles.section3}>
               <div className={styles.cantidadContainer}>
-                <span className={styles.cantidadLabel}>Cantidad:</span>
-                <div className={styles.cantidadControls}>
-                  <button
-                    onClick={decrementar}
-                    className={styles.cantidadIconButton}
-                  >
-                    <i className="bi bi-chevron-down"></i>
-                  </button>
-                  <span className={styles.cantidadValue}>{cantidad}</span>
-                  <button
-                    onClick={incrementar}
-                    className={styles.cantidadIconButton}
-                  >
-                    <i className="bi bi-chevron-up"></i>
-                  </button>
-                </div>
+                <label className={styles.cantidadLabel} htmlFor="cantidad">Cantidad:</label>
+                <input
+                  id="cantidad"
+                  type="number"
+                  min={1}
+                  value={cantidad}
+                  onChange={(e) => {
+                    const valor = e.target.value;
+                    if (valor === '') {
+                      setCantidad('');
+                      return;
+                    }
+                    const numero = Number(valor);
+                    if (!isNaN(numero) && numero > 0) {
+                      setCantidad(valor);
+                    }
+                  }}
+                  className={styles.cantidadInput}
+                />
               </div>
             </div>
 
             <div className={styles.section4}>
               <CustomButton
                 text="Agregar al carrito"
-                onClick={() => agregarAlCarrito(producto, cantidad, talleSeleccionado)}
+                onClick={() => agregarAlCarrito(producto, Number(cantidad) || 1, talleSeleccionado)}
               />            
             </div>
           </div>

@@ -21,6 +21,13 @@
     gap: 50px;
 }
 
+.barItemButton{
+  border: none;
+    font-size: 1.2rem;
+    background-color: #ffff;
+    cursor: pointer;
+}
+
 .barItem h2{
     display: flex;
     align-items: center;

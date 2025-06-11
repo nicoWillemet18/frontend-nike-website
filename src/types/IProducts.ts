@@ -1,10 +1,9 @@
-    import { Talle } from './talles'
+    import { Talle } from './ITalles'
 
     export interface Producto {
     id?: number
     nombre: string;
     categoriaId: number;
-    color: number;
     precio: number;
     descripcion: string;
     imagen: string;
