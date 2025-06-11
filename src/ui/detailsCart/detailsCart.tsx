@@ -47,7 +47,7 @@ const DetailsCart: React.FC = () => {
   }, []);
 
   const subtotal = productos.reduce((acc, p) => acc + p.precio * p.cantidad, 0);
-  const costoEnvio = productos.length > 0 ? 3700 : 0;
+  const costoEnvio = 0;//productos.length > 0 ? 3700 : 0;
   const total = subtotal + costoEnvio;
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -115,7 +115,8 @@ const DetailsCart: React.FC = () => {
         </div>
         <div className={styles.summaryItem}>
           <span>Costo de envío:</span>
-          <span>${costoEnvio.toLocaleString('es-AR')}</span>
+          {/*<span>${costoEnvio.toLocaleString('es-AR')}</span>*/}
+          <span>Gratis</span>
         </div>
         <div className={styles.summaryTotal}>
           <span>Total:</span>
