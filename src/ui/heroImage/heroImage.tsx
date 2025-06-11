@@ -1,6 +1,6 @@
 import React from 'react';
 import CustomButton from '../customButton/customButton'; 
-import styles from './HeroImage.module.css';
+import styles from './heroImage.module.css';
 
 interface HeroImageProps {
   imageSrc: string;     
